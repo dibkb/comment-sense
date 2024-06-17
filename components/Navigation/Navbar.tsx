@@ -19,7 +19,7 @@ const Navbar = () => {
         <h2 className="absolute left-6 text-white group-hover:text-stone-800">
           Sign in
         </h2>
-        <span className=" w-10 h-10 flex items-center justify-center rounded-3xl bg-transparent absolute right-1 bg-stone-100">
+        <span className="w-10 h-10 flex items-center justify-center rounded-3xl absolute right-1 bg-stone-100 z-10">
           <Arrowright className="size-5" />
         </span>
       </button>
