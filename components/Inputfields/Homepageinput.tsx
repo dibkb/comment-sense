@@ -1,17 +1,22 @@
 "use client";
-import { heading } from "@/fonts";
-import { cn } from "@/lib/utils";
+
 import { isYouTubeLink } from "@/utils/regx";
 import React, { MouseEventHandler, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { useRouter } from "next/navigation";
+import { getYouTubeVideoId } from "@/utils";
+import Urlinput from "./Urlinput";
 
 const Homepageinput = () => {
+  const router = useRouter();
   const { toast } = useToast();
   const [url, setUrl] = useState<string>("");
   const seeDemoClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    if (isYouTubeLink(url)) {
+    const id = getYouTubeVideoId(url);
+    if (isYouTubeLink(url) && id) {
+      router.push(`/video?ytid=${id}`);
     } else {
       toast({
         variant: "default",
@@ -22,24 +27,13 @@ const Homepageinput = () => {
     }
   };
   return (
-    <>
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        className="flex-1 outline-none px-4 rounded-full bg-transparent font-medium"
-        placeholder="https://www.youtube.com/watch?v=pwN8u6HFH8U"
-      />
-      <button
-        onClick={seeDemoClickHandler}
-        className={cn(
-          "hover:bg-stone-700 hover:text-white rounded-2xl px-4",
-          heading.className
-        )}
-      >
-        See Demo
-      </button>
-    </>
+    <Urlinput
+      state={url}
+      setState={setUrl}
+      butttonClickHandler={seeDemoClickHandler}
+    >
+      See Demo
+    </Urlinput>
   );
 };
 
