@@ -17,7 +17,7 @@ export default function Home() {
         <div className="h-20 border-stone-700 relative">
           <span
             className={cn(
-              "text-6xl flex gap-2 items-center px-4 py-2 rounded-xl",
+              "text-6xl flex gap-2 items-center px-4 py-2 rounded-xl font-medium",
               heading.className
             )}
           >

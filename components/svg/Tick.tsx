@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
+import { Iconprops } from "@/types/icons";
 import React from "react";
-interface Iconprops {
-  className?: string;
-}
 const Tick = ({ className }: Iconprops) => {
   return (
     <svg
