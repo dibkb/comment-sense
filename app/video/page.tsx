@@ -1,5 +1,6 @@
 "use client";
 import { getVideoInfo } from "@/apicall/nodeapi";
+import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { getYoutubeLinkFromId } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,10 +18,7 @@ export default function Video() {
       }
     } catch (error) {}
   }, []);
-  useEffect(() => {
-    if (ytid) {
-      getVideoInfo(ytid).then((res) => console.log(res));
-    }
-  }, [ytid]);
-  return <main className="container">Video</main>;
+  const { loading, apiResponse } = useGetBasicInfo(ytid);
+  if (loading) return <main className="container">Video</main>;
+  else return <main>{JSON.stringify(apiResponse)}</main>;
 }
