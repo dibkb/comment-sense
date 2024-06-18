@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 
+export const dynamic = "force-dynamic";
+
 export default function Video() {
   const { loading, apiResponse } = useGetBasicInfo();
   const [isClient, setIsClient] = useState(false);

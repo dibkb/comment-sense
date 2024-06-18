@@ -1,3 +1,5 @@
+"use client";
+
 import { getVideoInfo } from "@/apicall/nodeapi";
 import { toast } from "@/components/ui/use-toast";
 import { VideoInfo } from "@/types/nodeapi";
