@@ -4,17 +4,12 @@ import React, { Dispatch, SetStateAction } from "react";
 interface Urlinput {
   state: string;
   setState: Dispatch<SetStateAction<string>>;
-  butttonClickHandler: React.MouseEventHandler<HTMLButtonElement>;
+  submitHandler: React.FormEventHandler<HTMLFormElement>;
   children: React.ReactNode;
 }
-const Urlinput = ({
-  state,
-  setState,
-  butttonClickHandler,
-  children,
-}: Urlinput) => {
+const Urlinput = ({ state, setState, submitHandler, children }: Urlinput) => {
   return (
-    <>
+    <form onSubmit={submitHandler} className="w-full flex flex-row rounded-xl">
       <input
         type="text"
         value={state}
@@ -23,7 +18,7 @@ const Urlinput = ({
         placeholder="https://www.youtube.com/watch?v=pwN8u6HFH8U"
       />
       <button
-        onClick={butttonClickHandler}
+        type="submit"
         className={cn(
           "hover:bg-stone-700 hover:text-white rounded-2xl px-4",
           heading.className
@@ -31,7 +26,7 @@ const Urlinput = ({
       >
         {children}
       </button>
-    </>
+    </form>
   );
 };
 

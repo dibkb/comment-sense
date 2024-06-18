@@ -78,7 +78,7 @@ export default function Video() {
           </Link>
           <span
             className={cn(
-              "mt-2 flex items-center justify-between text-sm text-stone-700",
+              "mt-2 flex items-center justify-between text-sm text-stone-700 border-b border-stone-300 pb-2",
               heading.className
             )}
           >
