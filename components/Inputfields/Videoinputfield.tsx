@@ -6,9 +6,12 @@ import { useToast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
 import { getYouTubeVideoId } from "@/utils";
-import Urlinput from "./Urlinput";
+import Urlinput from "../Inputfields/Urlinput";
 
-const Homepageinput = () => {
+interface Videourlinputprops {
+  buttonText: string;
+}
+const Videourlinput = ({ buttonText }: Videourlinputprops) => {
   const router = useRouter();
   const { toast } = useToast();
   const [url, setUrl] = useState<string>("");
@@ -27,14 +30,16 @@ const Homepageinput = () => {
     }
   };
   return (
-    <Urlinput
-      state={url}
-      setState={setUrl}
-      butttonClickHandler={seeDemoClickHandler}
-    >
-      See Demo
-    </Urlinput>
+    <span className="flex mt-6 border border-stone-300 rounded-2xl p-1 w-full max-w-[600px] h-12 hover:border-stone-900 group">
+      <Urlinput
+        state={url}
+        setState={setUrl}
+        butttonClickHandler={seeDemoClickHandler}
+      >
+        {buttonText}
+      </Urlinput>
+    </span>
   );
 };
 
-export default Homepageinput;
+export default Videourlinput;

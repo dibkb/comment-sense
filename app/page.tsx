@@ -1,5 +1,5 @@
 import Features from "@/components/Homepage/Featureslayout";
-import Homepageinput from "@/components/Inputfields/Homepageinput";
+import Videourlinput from "@/components/Inputfields/Videoinputfield";
 import { heading } from "@/fonts";
 import { cn } from "@/lib/utils";
 export default function Home() {
@@ -29,9 +29,7 @@ export default function Home() {
         Discover What Your Favorite Channels and Creators Really Think with Our
         Advanced Sentiment Analysis Tools 🛠️
       </p>
-      <span className="flex mt-6 border border-stone-300 rounded-2xl p-1 w-full max-w-[600px] h-12 hover:border-stone-900 group">
-        <Homepageinput />
-      </span>
+      <Videourlinput buttonText={"See Demo"} />
       <span className="flex gap-9">
         <Features />
       </span>
