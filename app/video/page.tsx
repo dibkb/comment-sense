@@ -1,7 +1,11 @@
 "use client";
 import Videourlinput from "@/components/Inputfields/Videoinputfield";
+import Description from "@/components/Videopage/Description";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { heading } from "@/fonts";
 import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
+import { cn } from "@/lib/utils";
 import { formatDuration } from "@/utils";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
@@ -72,6 +76,16 @@ export default function Video() {
               </p>
             </h2>
           </Link>
+          <span
+            className={cn(
+              "mt-2 flex items-center justify-between text-sm text-stone-700",
+              heading.className
+            )}
+          >
+            <h1>{apiResponse?.category}</h1>
+            {apiResponse?.isFamilySafe && <h1>Family Friendly</h1>}
+          </span>
+          <Description text={apiResponse?.shortDescription || ""} />
         </div>
       </main>
     </Suspense>

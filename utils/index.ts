@@ -1,4 +1,4 @@
-import { isYouTubeLink } from "./regx";
+import { isYouTubeLink, timestampRegex, urlRegex } from "./regx";
 
 export function getYouTubeVideoId(url: string) {
   const regex =
@@ -44,3 +44,19 @@ export function formatDuration(seconds: any) {
     return `${remainingSeconds} ${remainingSeconds > 1 ? "s" : ""}`;
   }
 }
+
+export const processText = (text: string) => {
+  const parts = text
+    .replace(urlRegex, "{{url_content}}")
+    .split("{{url_content}}");
+  const urls = text.match(urlRegex);
+  return { parts, urls };
+};
+
+export const processPart = (part: string) => {
+  const timeParts = part
+    .replace(timestampRegex, "{{timestamp_content}}")
+    .split("{{timestamp_content}}");
+  const times = part.match(timestampRegex);
+  return { timeParts, times };
+};
