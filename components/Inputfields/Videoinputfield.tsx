@@ -30,7 +30,7 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
     }
   };
   return (
-    <span className="flex mt-6 border border-stone-300 rounded-2xl p-1 w-full max-w-[600px] h-12 hover:border-stone-900 group">
+    <span className="flex mt-6 border border-stone-300 rounded-2xl p-1 w-full max-w-[900px] h-12 hover:border-stone-900 group">
       <Urlinput
         state={url}
         setState={setUrl}
