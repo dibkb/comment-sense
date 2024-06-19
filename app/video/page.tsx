@@ -1,6 +1,8 @@
 "use client";
 import Videourlinput from "@/components/Inputfields/Videoinputfield";
+import CommentSection from "@/components/Videopage/CommentSection";
 import Description from "@/components/Videopage/Description";
+import Language from "@/components/svg/Language";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { heading } from "@/fonts";
@@ -86,6 +88,7 @@ export default function Video() {
             {apiResponse?.isFamilySafe && <h1>Family Friendly</h1>}
           </span>
           <Description text={apiResponse?.shortDescription || ""} />
+          <CommentSection />
         </div>
       </main>
     </Suspense>
