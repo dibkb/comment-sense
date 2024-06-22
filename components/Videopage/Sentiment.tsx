@@ -1,20 +1,30 @@
-import { Tooltip, TooltipProvider } from "@radix-ui/react-tooltip";
 import React from "react";
+import { Tooltip, TooltipProvider } from "@radix-ui/react-tooltip";
 import { TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { type SentimentObj } from "@/types/fastapi";
 import { cn } from "@/lib/utils";
 
-const Sentiment = ({ label, score }: SentimentObj) => {
-  let bgColor = "";
+// Helper function to get background color based on sentiment label
+const getBgColor = (label: string): string => {
   switch (label) {
     case "negative":
-      bgColor = "bg-[#FE5E57]";
+      return "bg-[#FE5E57]";
     case "neutral":
-      bgColor = "bg-[#FDBB35]";
-
+      return "bg-[#FDBB35]";
     case "positive":
-      bgColor = "bg-[#00CD4C]";
+      return "bg-[#00CD4C]";
+    default:
+      return "";
   }
+};
+
+// Helper function to format the score
+const formatScore = (score: number): string => {
+  return `${(score * 100).toFixed(2)}%`;
+};
+
+const Sentiment = ({ label, score }: SentimentObj) => {
+  const bgColor = getBgColor(label);
 
   return (
     <TooltipProvider>
@@ -30,10 +40,7 @@ const Sentiment = ({ label, score }: SentimentObj) => {
           </button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>
-            Predicted with a confidence of {Math.round(score * 100 * 100) / 100}
-            %
-          </p>
+          <p>Predicted with a confidence of {formatScore(score)}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

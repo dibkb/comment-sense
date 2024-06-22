@@ -1,4 +1,4 @@
-type sentimentType = "negative" | "neutral" | "positive";
+export type sentimentType = "negative" | "neutral" | "positive";
 export type emotionType =
   | "admiration"
   | "admiration"

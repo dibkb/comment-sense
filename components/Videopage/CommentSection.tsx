@@ -2,9 +2,12 @@ import { CommentProvider, useCommentContext } from "@/context/CommentContext";
 import useFetchComments from "@/hooks/useFetchComments";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
+import React, { useMemo } from "react";
 import { type Comment } from "@/types/fastapi";
-import SingleComment from "./SingleComment";
+import { TabsContent, TabsTrigger, Tabs, TabsList } from "../ui/tabs";
+import { cn } from "@/lib/utils";
+import { heading } from "@/fonts";
+import SentimentTab from "./Tabs/SentimentTab";
 const mockData: Comment[] = [
   {
     cid: "UgzFXbeOKkgVmIZIuqF4AaABAg",
@@ -1182,9 +1185,26 @@ export default CommentSectionWrapper;
 
 const CommentSecton = ({ ytid }: CommentSectionprops) => {
   useFetchComments(ytid);
-  //   const { data } = useCommentContext();
-  const commentsRender = mockData.map((c) => {
-    return <SingleComment key={c.cid} comment={c} />;
-  });
-  return <div className="flex flex-col gap-6">{commentsRender}</div>;
+  const { range } = useCommentContext();
+  return (
+    <div className="flex flex-col gap-6 mt-2">
+      <p className={cn("text-center", heading.className)}>
+        You are viewing page {range.stop / 50}
+      </p>
+      <Tabs defaultValue="sentiment" className="w-full">
+        <TabsList className="w-full flex">
+          <TabsTrigger value="sentiment" className="flex-1">
+            Sentiment Detection
+          </TabsTrigger>
+          <TabsTrigger value="emotion" className="flex-1">
+            Emotion Detection
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="sentiment">
+          <SentimentTab />
+        </TabsContent>
+        <TabsContent value="emotion">Change your password here.</TabsContent>
+      </Tabs>
+    </div>
+  );
 };

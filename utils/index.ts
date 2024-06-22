@@ -1,3 +1,4 @@
+import { Comment, sentimentType } from "@/types/fastapi";
 import { isYouTubeLink, timestampRegex, urlRegex } from "./regx";
 
 export function getYouTubeVideoId(url: string) {
@@ -59,4 +60,31 @@ export const processPart = (part: string) => {
     .split("{{timestamp_content}}");
   const times = part.match(timestampRegex);
   return { timeParts, times };
+};
+
+export const calculateSentiment = (
+  comments: Comment[]
+): Record<sentimentType, number> => {
+  const sentimentCounts = comments.reduce(
+    (acc, c) => {
+      switch (c.sentiment.label) {
+        case "negative":
+          acc.negative++;
+          break;
+        case "neutral":
+          acc.neutral++;
+          break;
+        case "positive":
+          acc.positive++;
+          break;
+      }
+      return acc;
+    },
+    {
+      positive: 0,
+      neutral: 0,
+      negative: 0,
+    }
+  );
+  return sentimentCounts;
 };

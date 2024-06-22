@@ -1,25 +1,23 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { type Comment } from "@/types/fastapi";
+import { sentimentType, type Comment } from "@/types/fastapi";
 import Language from "../svg/Language";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
-import { Badge } from "../ui/badge";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@radix-ui/react-tooltip";
-import { Button } from "../ui/button";
 import Sentiment from "./Sentiment";
+import { cn } from "@/lib/utils";
 interface Commentprops {
   comment: Comment;
 }
 const SingleComment = ({ comment }: Commentprops) => {
   const [showTrans, setShowTrans] = useState(false);
   return (
-    <div className="flex flex-col gap-1">
+    <div
+      className={cn(
+        "flex flex-col gap-1 rounded-lg p-2",
+        getBgColor(comment.sentiment.label)
+      )}
+    >
       {/* photo and name and time */}
       <div className="flex items-center justify-between">
         <Link
@@ -79,3 +77,15 @@ const SingleComment = ({ comment }: Commentprops) => {
 };
 
 export default SingleComment;
+
+// Helper function to get background color based on sentiment label
+function getBgColor(label: sentimentType): string {
+  switch (label) {
+    case "negative":
+      return "bg-red-50";
+    case "neutral":
+      return "bg-amber-50";
+    case "positive":
+      return "bg-green-50";
+  }
+}
