@@ -1,32 +1,42 @@
 "use client";
 import Videourlinput from "@/components/Inputfields/Videoinputfield";
-import CommentSection from "@/components/Videopage/CommentSection";
+import CommentSectionWrapper from "@/components/Videopage/CommentSection";
 import Description from "@/components/Videopage/Description";
-import Language from "@/components/svg/Language";
+import Category from "@/components/svg/Category";
+import Family from "@/components/svg/Family";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { heading } from "@/fonts";
 import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { cn } from "@/lib/utils";
 import { formatDuration } from "@/utils";
+import { isYouTubeId } from "@/utils/regx";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 
 export const dynamic = "force-dynamic";
 
 export default function Video() {
+  const searchParams = useSearchParams();
+  const ytid = searchParams.get("ytid");
   const { loading, apiResponse } = useGetBasicInfo();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
   }, []);
   if (!isClient) return null;
-  // TODO : skeleton loader
-  if (loading) return "Loading...";
+  if (typeof ytid !== "string" || !isYouTubeId(ytid)) {
+    return null;
+    // TODO : invalid YouTube video id
+  }
+  if (loading)
+    // TODO : skeleton loader
+    return "Loading...";
   return (
     <Suspense>
-      <main className="container flex flex-col gap-4 max-w-[900px]">
+      <main className="px-8 flex flex-col gap-4 max-w-[900px]">
         <span className="flex justify-center">
           <Videourlinput buttonText="Go" />
         </span>
@@ -84,11 +94,19 @@ export default function Video() {
               heading.className
             )}
           >
-            <h1>{apiResponse?.category}</h1>
-            {apiResponse?.isFamilySafe && <h1>Family Friendly</h1>}
+            <h1 className="flex items-center gap-1">
+              <Category className="size-4" />
+              {apiResponse?.category}
+            </h1>
+            {apiResponse?.isFamilySafe && (
+              <h1 className="flex items-center gap-1">
+                <Family className="size-4" />
+                Family Friendly
+              </h1>
+            )}
           </span>
           <Description text={apiResponse?.shortDescription || ""} />
-          <CommentSection />
+          <CommentSectionWrapper ytid={ytid} />
         </div>
       </main>
     </Suspense>
