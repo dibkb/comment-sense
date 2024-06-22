@@ -13,12 +13,12 @@ interface CommentContextType {
   range: RangeType;
   loading: boolean;
   error: Error | null;
-  sort: boolean;
+  sort: 0 | 1;
   setData: Dispatch<SetStateAction<Comment[]>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<Error | null>>;
   setRange: Dispatch<SetStateAction<RangeType>>;
-  //   setSort: Dispatch<SetStateAction<boolean>>;
+  setSort: Dispatch<SetStateAction<0 | 1>>;
 }
 
 const CommentContext = createContext<CommentContextType | undefined>(undefined);
@@ -36,7 +36,7 @@ export const CommentProvider = ({ children }: { children: ReactNode }) => {
   const [range, setRange] = useState<RangeType>({ start: 0, stop: 50 });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [sort, setSort] = useState<boolean>(false);
+  const [sort, setSort] = useState<0 | 1>(0);
   const value = {
     data,
     loading,
@@ -47,6 +47,7 @@ export const CommentProvider = ({ children }: { children: ReactNode }) => {
     setLoading,
     setError,
     setRange,
+    setSort,
   };
 
   return (
