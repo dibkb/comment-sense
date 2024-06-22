@@ -32,7 +32,7 @@ export default function Video() {
     // TODO : invalid YouTube video id
   }
   let mainContent;
-  if (!loading) {
+  if (loading) {
     mainContent = <MainContentSkeleton />;
   } else {
     mainContent = (
@@ -114,7 +114,7 @@ export default function Video() {
     <Suspense>
       <main className="px-8 flex flex-col gap-4 max-w-[900px]">
         {mainContent}
-        {/* <CommentSectionWrapper ytid={ytid} /> */}
+        <CommentSectionWrapper ytid={ytid} />
       </main>
     </Suspense>
   );

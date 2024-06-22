@@ -51,24 +51,26 @@ const CommentSection = ({ ytid }: CommentSectionProps) => {
 
   // Get the comment data, range, setRange function, and loading state from the CommentContext
   const { range, data, setRange, loading } = useCommentContext();
-  const previousClickHandler = useCallback(() => {
+  const previousClickHandler = useCallback(
     () =>
       setRange((prevRange) => {
         return {
           start: prevRange.start - 50,
           stop: prevRange.stop - 50,
         };
-      });
-  }, [setRange]);
-  const nextClickHandler = useCallback(() => {
+      }),
+    [setRange]
+  );
+  const nextClickHandler = useCallback(
     () =>
       setRange((prevRange) => {
         return {
           start: prevRange.start + 50,
           stop: prevRange.stop + 50,
         };
-      });
-  }, [setRange]);
+      }),
+    [setRange]
+  );
   // If the data is still loading, return the CommentSkeleton component
   if (loading) return <CommentSkeleton />;
 

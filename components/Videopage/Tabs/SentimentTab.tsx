@@ -12,19 +12,19 @@ import {
   SelectValue,
   SelectItem,
 } from "@/components/ui/select";
-import { mockData } from "../mock";
+// import { mockData } from "../mock";
 import { sentimentType } from "@/types/fastapi";
 import { colorMap } from "@/utils/colors";
 import { cn } from "@/lib/utils";
 
 const SentimentTab = () => {
   const { data } = useCommentContext();
-  const sentimentCounts = useMemo(() => calculateSentiment(mockData), []);
+  const sentimentCounts = useMemo(() => calculateSentiment(data), []);
   const [select, setSelect] = useState<sentimentType | "all">("all");
 
   const commentsToDisplay = useMemo(() => {
-    if (select === "all") return mockData;
-    else return mockData.filter((data) => data.sentiment.label === select);
+    if (select === "all") return data;
+    else return data.filter((d) => d.sentiment.label === select);
   }, [select]);
   const commentsRender = commentsToDisplay.map((c) => {
     return <SingleComment key={c.cid} comment={c} />;
@@ -60,7 +60,7 @@ const SentimentTab = () => {
                         />
                       )}
                       <p className="text-xs text-stone-500">
-                        ({s === "all" ? mockData.length : sentimentCounts[s]})
+                        ({s === "all" ? data.length : sentimentCounts[s]})
                       </p>
                     </span>
                   </SelectItem>
