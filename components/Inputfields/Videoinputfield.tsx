@@ -22,12 +22,7 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
       router.push(`/video?ytid=${id}`);
     } else {
       toast({
-        style: {
-          backgroundColor: "#b91c1c",
-          color: "#f5f5f4",
-          borderRadius: 8,
-        },
-        variant: "default",
+        variant: "destructive",
         title: "Uh oh! Something went wrong. 😢",
         description: "The url you entered is not a valid youtube url",
         action: (
