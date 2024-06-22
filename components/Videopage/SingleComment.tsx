@@ -7,7 +7,7 @@ interface Commentprops {
   comment: Comment;
 }
 const SingleComment = ({ comment }: Commentprops) => {
-  const [showTrans, setShowTrans] = useState(comment.translated ? true : 0);
+  const [showTrans, setShowTrans] = useState(false);
   return (
     <div className="flex flex-col gap-1">
       {/* photo and name */}
@@ -26,12 +26,22 @@ const SingleComment = ({ comment }: Commentprops) => {
       </Link>
       {/* text */}
       <p className="text-sm">{comment.text}</p>
-      <span>
-        <p className="cursor-pointer text-stone-600 text-xs flex items-center gap-1 px-2 py-1 hover:bg-stone-200 w-min border">
-          <Language className="size-3" />
-          Translate
-        </p>
-      </span>
+      {/* transalate */}
+      {comment.translated ? (
+        <>
+          <span onClick={() => setShowTrans((t) => !t)}>
+            <p className="cursor-pointer text-stone-600 text-[10px] flex items-center gap-1 px-2 py-[2px] rounded-md hover:bg-stone-100 w-min select-none whitespace-nowrap">
+              <Language className="size-3" />
+              {showTrans ? "Don't translate" : "Translate"}
+            </p>
+          </span>
+          {showTrans && (
+            <p className="text-xs">&ldquo;{comment.translated}&ldquo;</p>
+          )}
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
