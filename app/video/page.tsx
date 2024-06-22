@@ -5,7 +5,6 @@ import Description from "@/components/Videopage/Description";
 import Category from "@/components/svg/Category";
 import Family from "@/components/svg/Family";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { heading } from "@/fonts";
 import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { cn } from "@/lib/utils";
@@ -52,7 +51,7 @@ export default function Video() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <span className="border-b border-stone-300 pb-2">
+          <span className="border-b pb-2">
             <h1 className="text-xl font-medium ">{apiResponse?.title}</h1>
             <span className="mt-1 text-sm text-stone-600 flex justify-between items-center">
               <h2 className="">{apiResponse?.views.text}</h2>
@@ -90,7 +89,7 @@ export default function Video() {
           </Link>
           <span
             className={cn(
-              "mt-2 flex items-center justify-between text-sm text-stone-700 border-b border-stone-300 pb-2",
+              "mt-2 flex items-center justify-between text-sm text-stone-700 border-b pb-2",
               heading.className
             )}
           >
