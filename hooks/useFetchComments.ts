@@ -19,7 +19,7 @@ const useFetchComments = (ytid: string): void => {
     queryKey: ["pageData", range.start],
     queryFn: async (): Promise<Comment[]> => {
       const res = await fastApiInstance.get(
-        `video/?ytid=${ytid}&start=${range.start}&end=${range.stop}&sort=${0}`
+        `video/?ytid=${ytid}&start=${range.start}&end=${range.stop}&sort=${sort}`
       );
       return res.data;
     },
