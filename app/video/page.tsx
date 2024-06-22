@@ -1,5 +1,6 @@
 "use client";
 import Videourlinput from "@/components/Inputfields/Videoinputfield";
+import MainContentSkeleton from "@/components/SkeletonLoaders/MainContentSkeleton";
 import CommentSectionWrapper from "@/components/Videopage/CommentSection";
 import Description from "@/components/Videopage/Description";
 import Category from "@/components/svg/Category";
@@ -30,12 +31,12 @@ export default function Video() {
     return null;
     // TODO : invalid YouTube video id
   }
-  if (loading)
-    // TODO : skeleton loader
-    return "Loading...";
-  return (
-    <Suspense>
-      <main className="px-8 flex flex-col gap-4 max-w-[900px]">
+  let mainContent;
+  if (!loading) {
+    mainContent = <MainContentSkeleton />;
+  } else {
+    mainContent = (
+      <>
         <span className="flex justify-center">
           <Videourlinput buttonText="Go" />
         </span>
@@ -105,8 +106,15 @@ export default function Video() {
             )}
           </span>
           <Description text={apiResponse?.shortDescription || ""} />
-          <CommentSectionWrapper ytid={ytid} />
         </div>
+      </>
+    );
+  }
+  return (
+    <Suspense>
+      <main className="px-8 flex flex-col gap-4 max-w-[900px]">
+        {mainContent}
+        {/* <CommentSectionWrapper ytid={ytid} /> */}
       </main>
     </Suspense>
   );
