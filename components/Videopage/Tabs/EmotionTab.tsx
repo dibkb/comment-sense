@@ -12,13 +12,14 @@ import emotionEmojiMap from "@/utils/emojimap";
 import React, { useMemo, useState } from "react";
 import SingleComment from "../SingleComment";
 import { mockData } from "../mock";
+import { calculateEmotions } from "@/utils";
 
 const EmotionTab = () => {
   const [select, setSelect] = useState<emotionType | "all">("all");
-
+  const emotionCounts = useMemo(() => calculateEmotions(mockData), []);
   const commentsToDisplay = useMemo(() => {
     if (select === "all") return mockData;
-    else return mockData.filter((d) => d.sentiment.label === select);
+    else return mockData.filter((d) => d.emotion.label === select);
   }, [select]);
   const commentsRender = commentsToDisplay.map((c) => {
     return <SingleComment key={c.cid} comment={c} type="emotion" />;
@@ -36,7 +37,7 @@ const EmotionTab = () => {
               <SelectItem value={"all"} className="capitalize">
                 <span className="flex gap-2">
                   <span className="ml-6">all</span>
-                  <p className="text-xs text-stone-500">(40)</p>
+                  <p className="text-xs text-stone-500">({mockData.length})</p>
                 </span>
               </SelectItem>
               {Object.keys(emotionEmojiMap).map((_e, i) => {
@@ -46,7 +47,9 @@ const EmotionTab = () => {
                     <span className="flex items-center gap-2">
                       {emotionEmojiMap[emo]}
                       <span>{emo}</span>
-                      <p className="text-xs text-stone-500">(40)</p>
+                      <p className="text-xs text-stone-500">
+                        ({emotionCounts[emo]})
+                      </p>
                     </span>
                   </SelectItem>
                 );

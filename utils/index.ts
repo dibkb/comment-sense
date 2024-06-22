@@ -1,4 +1,4 @@
-import { Comment, sentimentType } from "@/types/fastapi";
+import { Comment, type emotionType, sentimentType } from "@/types/fastapi";
 import { isYouTubeLink, timestampRegex, urlRegex } from "./regx";
 
 export function getYouTubeVideoId(url: string) {
@@ -88,7 +88,45 @@ export const calculateSentiment = (
   );
   return sentimentCounts;
 };
-
+type EmotionCounts = Record<emotionType, number>;
+export const calculateEmotions = (comments: Comment[]): EmotionCounts => {
+  // Extract the key of the emotionType to an initialize the accumulator
+  const initialCount: EmotionCounts = {
+    neutral: 0,
+    admiration: 0,
+    amusement: 0,
+    anger: 0,
+    annoyance: 0,
+    approval: 0,
+    caring: 0,
+    confusion: 0,
+    curiosity: 0,
+    desire: 0,
+    disappointment: 0,
+    disapproval: 0,
+    disgust: 0,
+    embarrassment: 0,
+    excitement: 0,
+    fear: 0,
+    gratitude: 0,
+    grief: 0,
+    joy: 0,
+    love: 0,
+    nervousness: 0,
+    optimism: 0,
+    pride: 0,
+    realization: 0,
+    relief: 0,
+    remorse: 0,
+    sadness: 0,
+    surprise: 0,
+  };
+  return comments.reduce((acc, c) => {
+    const emotionLabel = c.emotion.label;
+    acc[emotionLabel]++;
+    return acc;
+  }, initialCount);
+};
 // Helper function to format the score
 export const formatScore = (score: number): string => {
   return `${(score * 100).toFixed(2)}%`;
