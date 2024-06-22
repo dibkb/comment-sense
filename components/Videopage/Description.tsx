@@ -71,7 +71,7 @@ const Description = ({ text }: DescriptionProps) => {
         }}
       >
         {doubleLines.map((block, blockIndex) => (
-          <p key={blockIndex} className="mb-4">
+          <span key={blockIndex} className="mb-4">
             {block.split("\n").map((line, lineIndex) => {
               const { parts, urls } = processText(line); // Process each line for URLs
               return (
@@ -84,7 +84,7 @@ const Description = ({ text }: DescriptionProps) => {
                 </p>
               );
             })}
-          </p>
+          </span>
         ))}
       </div>
       <button

@@ -14,8 +14,8 @@ const SingleComment = ({ comment }: Commentprops) => {
   return (
     <div
       className={cn(
-        "flex flex-col gap-1 rounded-lg p-2",
-        getBgColor(comment.sentiment.label)
+        "flex flex-col gap-1 rounded-lg px-4 py-2 border border-stone-200"
+        // getBgColor(comment.sentiment.label)
       )}
     >
       {/* photo and name and time */}

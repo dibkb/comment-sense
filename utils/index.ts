@@ -88,3 +88,8 @@ export const calculateSentiment = (
   );
   return sentimentCounts;
 };
+
+// Helper function to format the score
+export const formatScore = (score: number): string => {
+  return `${(score * 100).toFixed(2)}%`;
+};
