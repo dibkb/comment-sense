@@ -40,7 +40,11 @@ const SingleComment = ({ comment, type }: Commentprops) => {
         </div>
       </div>
       {/* text */}
-      <p className="text-sm">{comment.text}</p>
+      <span className="text-sm">
+        {comment.text.split("\n").map((l) => (
+          <p key={l}>{l}</p>
+        ))}
+      </span>
       {/* transalate */}
       {comment.translated ? (
         <>
@@ -51,7 +55,13 @@ const SingleComment = ({ comment, type }: Commentprops) => {
             </p>
           </span>
           {showTrans && (
-            <p className="text-xs ml-4">&ldquo;{comment.translated}&ldquo;</p>
+            <span className="text-xs ml-4">
+              &ldquo;
+              {comment.translated.split("\n").map((l) => (
+                <p key={l}>{l}</p>
+              ))}
+              &ldquo;
+            </span>
           )}
         </>
       ) : (
