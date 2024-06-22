@@ -1,0 +1,32 @@
+import { emotionType } from "@/types/fastapi";
+
+const emotionEmojiMap: Record<emotionType, string> = {
+  admiration: "🤩",
+  anger: "😡",
+  annoyance: "😖",
+  approval: "👍",
+  caring: "🤗",
+  confusion: "😕",
+  curiosity: "🤔",
+  desire: "😍",
+  disappointment: "😞",
+  disapproval: "👎",
+  disgust: "🤢",
+  embarrassment: "😳",
+  excitement: "🤩",
+  fear: "😨",
+  gratitude: "🙏",
+  grief: "😢",
+  joy: "🥳",
+  love: "💕",
+  nervousness: "😰",
+  optimism: "🌟",
+  pride: "🏅",
+  realization: "💡",
+  relief: "",
+  remorse: "😔",
+  sadness: "😥",
+  surprise: "😯",
+  neutral: "😐",
+};
+export default emotionEmojiMap;

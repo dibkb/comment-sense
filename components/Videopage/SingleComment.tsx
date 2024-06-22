@@ -69,7 +69,10 @@ const SingleComment = ({ comment }: Commentprops) => {
         </p> */}
       </div>
       <div>
-        <Sentiment />
+        <Sentiment
+          label={comment.sentiment.label}
+          score={comment.sentiment.score}
+        />
       </div>
     </div>
   );
