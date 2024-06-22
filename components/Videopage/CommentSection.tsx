@@ -9,6 +9,7 @@ import { heading } from "@/fonts";
 import SentimentTab from "./Tabs/SentimentTab";
 import { PaginationNext, PaginationPrevious } from "../ui/pagination";
 import CommentSkeleton from "../SkeletonLoaders/CommentSkeleton";
+import EmotionTab from "./Tabs/EmotionTab";
 
 // Create a QueryClient instance to be used in the QueryClientProvider
 const queryClient = new QueryClient({
@@ -93,7 +94,9 @@ const CommentSection = ({ ytid }: CommentSectionProps) => {
           <TabsContent value="sentiment">
             <SentimentTab />
           </TabsContent>
-          <TabsContent value="emotion">Change your password here.</TabsContent>
+          <TabsContent value="emotion">
+            <EmotionTab />
+          </TabsContent>
         </Tabs>
         <div className="flex items-center gap-4 mx-auto">
           <button disabled={range.start === 0} onClick={previousClickHandler}>

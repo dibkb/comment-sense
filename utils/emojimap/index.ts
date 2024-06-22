@@ -24,7 +24,7 @@ const emotionEmojiMap: Record<emotionType, string> = {
   optimism: "🌟",
   pride: "🏅",
   realization: "💡",
-  relief: "",
+  relief: "😮‍💨",
   remorse: "😔",
   sadness: "😥",
   surprise: "😯",

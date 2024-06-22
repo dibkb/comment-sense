@@ -34,7 +34,7 @@ export interface SentimentObj {
   score: number;
 }
 
-interface EmotionObj {
+export interface EmotionObj {
   label: emotionType;
   score: number;
 }

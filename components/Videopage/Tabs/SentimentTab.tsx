@@ -19,15 +19,15 @@ import { cn } from "@/lib/utils";
 
 const SentimentTab = () => {
   const { data } = useCommentContext();
-  const sentimentCounts = useMemo(() => calculateSentiment(data), []);
+  const sentimentCounts = useMemo(() => calculateSentiment(data), [data]);
   const [select, setSelect] = useState<sentimentType | "all">("all");
 
   const commentsToDisplay = useMemo(() => {
     if (select === "all") return data;
     else return data.filter((d) => d.sentiment.label === select);
-  }, [select]);
+  }, [select, data]);
   const commentsRender = commentsToDisplay.map((c) => {
-    return <SingleComment key={c.cid} comment={c} />;
+    return <SingleComment key={c.cid} comment={c} type="sentiment" />;
   });
   const selectOptions: (sentimentType | "all")[] = [
     "all",

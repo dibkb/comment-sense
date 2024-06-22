@@ -6,10 +6,12 @@ import Language from "../svg/Language";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 import Sentiment from "./Sentiment";
 import { cn } from "@/lib/utils";
+import Emotion from "./Emotion";
 interface Commentprops {
   comment: Comment;
+  type: "emotion" | "sentiment";
 }
-const SingleComment = ({ comment }: Commentprops) => {
+const SingleComment = ({ comment, type }: Commentprops) => {
   const [showTrans, setShowTrans] = useState(false);
   return (
     <div
@@ -67,10 +69,18 @@ const SingleComment = ({ comment }: Commentprops) => {
         </p> */}
       </div>
       <div>
-        <Sentiment
-          label={comment.sentiment.label}
-          score={comment.sentiment.score}
-        />
+        {type === "sentiment" && (
+          <Sentiment
+            label={comment.sentiment.label}
+            score={comment.sentiment.score}
+          />
+        )}
+        {type === "emotion" && (
+          <Emotion
+            label={comment.emotion.label}
+            score={comment.emotion.score}
+          />
+        )}
       </div>
     </div>
   );
