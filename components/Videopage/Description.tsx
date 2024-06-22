@@ -58,7 +58,7 @@ const Description = ({ text }: DescriptionProps) => {
   const doubleLines = text.split("\n\n");
   const [showLess, setShowLess] = useState(true);
   return (
-    <div className="border border-stone-300 bg-stone-300 p-4 rounded-[8px]">
+    <div className="bg-stone-100 p-4 rounded-[8px]">
       <div
         className={cn(
           "text-sm overflow-hidden",
