@@ -1,7 +1,7 @@
 export type sentimentType = "negative" | "neutral" | "positive";
 export type emotionType =
   | "admiration"
-  | "admiration"
+  | "amusement"
   | "anger"
   | "annoyance"
   | "approval"
@@ -20,14 +20,15 @@ export type emotionType =
   | "joy"
   | "love"
   | "nervousness"
+  | "neutral"
   | "optimism"
   | "pride"
   | "realization"
   | "relief"
   | "remorse"
   | "sadness"
-  | "surprise"
-  | "neutral";
+  | "surprise";
+
 export interface SentimentObj {
   label: sentimentType;
   score: number;

@@ -2,6 +2,7 @@ import { emotionType } from "@/types/fastapi";
 
 const emotionEmojiMap: Record<emotionType, string> = {
   admiration: "🤩",
+  amusement: "😂",
   anger: "😡",
   annoyance: "😖",
   approval: "👍",
