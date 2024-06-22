@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        "container py-2 border-b border-stone-300 flex items-center justify-between",
+        "container py-2 border-b flex items-center justify-between",
         heading.className
       )}
     >
