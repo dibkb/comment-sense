@@ -1,3 +1,10 @@
-import { Playfair_Display, Raleway, Inter } from "next/font/google";
+import {
+  Playfair_Display,
+  Raleway,
+  Inter,
+  Nunito_Sans,
+  Ubuntu,
+  Open_Sans,
+} from "next/font/google";
 export const heading = Playfair_Display({ subsets: ["latin"] });
-export const body = Raleway({ subsets: ["latin"] });
+export const body = Nunito_Sans({ subsets: ["latin"] });

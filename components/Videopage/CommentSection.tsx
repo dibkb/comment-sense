@@ -1186,5 +1186,5 @@ const CommentSecton = ({ ytid }: CommentSectionprops) => {
   const commentsRender = mockData.map((c) => {
     return <SingleComment key={c.cid} comment={c} />;
   });
-  return <div className="flex flex-col gap-4">{commentsRender}</div>;
+  return <div className="flex flex-col gap-6">{commentsRender}</div>;
 };
