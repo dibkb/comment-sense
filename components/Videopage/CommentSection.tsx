@@ -22,16 +22,16 @@ const queryClient = new QueryClient({
 
 // Define the props for the CommentSectionWrapper component
 interface CommentSectionWrapperProps {
-  ytid: string;
+  // ytid: string;
 }
 
 // Define the CommentSectionWrapper component
-const CommentSectionWrapper = ({ ytid }: CommentSectionWrapperProps) => {
+const CommentSectionWrapper = () => {
   // Wrap the CommentProvider with the QueryClientProvider
   return (
     <QueryClientProvider client={queryClient}>
       <CommentProvider>
-        <CommentSection ytid={ytid} />
+        <CommentSection />
       </CommentProvider>
     </QueryClientProvider>
   );
@@ -42,13 +42,13 @@ export default CommentSectionWrapper;
 
 // Define the props for the CommentSection component
 interface CommentSectionProps {
-  ytid: string;
+  // ytid: string;
 }
 
 // Define the CommentSection component
-const CommentSection = ({ ytid }: CommentSectionProps) => {
+const CommentSection = () => {
   // Fetch the comments using the useFetchComments hook
-  useFetchComments(ytid);
+  useFetchComments();
 
   // Get the comment data, range, setRange function, and loading state from the CommentContext
   const { range, data, setRange, loading } = useCommentContext();

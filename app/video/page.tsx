@@ -41,7 +41,7 @@ export default function Video() {
     <Suspense>
       <main className="px-8 flex flex-col gap-4 max-w-[900px]">
         {mainContent}
-        <CommentSectionWrapper ytid={ytid} />
+        <CommentSectionWrapper />
       </main>
     </Suspense>
   );

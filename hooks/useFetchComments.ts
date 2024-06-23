@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Comment } from "@/types/fastapi";
 import { fastApiInstance } from "@/axios";
 import { useCommentContext } from "@/context/CommentContext";
+import { useSearchParams } from "next/navigation";
 
 interface getVideoInfoProps {
   ytid: string;
@@ -12,17 +13,19 @@ interface getVideoInfoProps {
   sort: 0 | 1;
 }
 
-const useFetchComments = (ytid: string): void => {
-  const { range, setRange, setLoading, setError, setData, sort } =
-    useCommentContext();
+const useFetchComments = (): void => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("ytid");
+  const { range, setLoading, setError, setData, sort } = useCommentContext();
+  const fetchComments = async (): Promise<Comment[]> => {
+    const res = await fastApiInstance.get(
+      `video/?ytid=${id}&start=${range.start}&end=${range.stop}&sort=${sort}`
+    );
+    return res.data;
+  };
   const { data, error, isLoading } = useQuery({
-    queryKey: ["pageData", range.start],
-    queryFn: async (): Promise<Comment[]> => {
-      const res = await fastApiInstance.get(
-        `video/?ytid=${ytid}&start=${range.start}&end=${range.stop}&sort=${sort}`
-      );
-      return res.data;
-    },
+    queryKey: ["pageData", id, range.start],
+    queryFn: id && id.length ? fetchComments : () => Promise.resolve([]),
   });
   useEffect(() => {
     if (data) {
