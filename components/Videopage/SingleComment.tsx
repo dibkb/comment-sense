@@ -7,6 +7,7 @@ import { HeartFilledIcon } from "@radix-ui/react-icons";
 import Sentiment from "./Sentiment";
 import { cn } from "@/lib/utils";
 import Emotion from "./Emotion";
+import Commenttext from "./Commenttext";
 interface Commentprops {
   comment: Comment;
   type: "emotion" | "sentiment";
@@ -16,7 +17,7 @@ const SingleComment = ({ comment, type }: Commentprops) => {
   return (
     <div
       className={cn(
-        "flex flex-col gap-1 rounded-lg px-4 py-2 border border-stone-200"
+        "flex flex-col gap-1 rounded-lg px-4 py-2 border border-dashed bg-zinc-50 border-stone-200"
         // getBgColor(comment.sentiment.label)
       )}
     >
@@ -40,11 +41,7 @@ const SingleComment = ({ comment, type }: Commentprops) => {
         </div>
       </div>
       {/* text */}
-      <span className="text-sm">
-        {comment.text.split("\n").map((l) => (
-          <p key={l}>{l}</p>
-        ))}
-      </span>
+      <Commenttext text={comment.text} />
       {/* transalate */}
       {comment.translated ? (
         <>
@@ -55,11 +52,9 @@ const SingleComment = ({ comment, type }: Commentprops) => {
             </p>
           </span>
           {showTrans && (
-            <span className="text-xs ml-4">
+            <span className="text-xs ml-4 flex">
               &ldquo;
-              {comment.translated.split("\n").map((l) => (
-                <p key={l}>{l}</p>
-              ))}
+              <Commenttext text={comment.translated} />
               &ldquo;
             </span>
           )}

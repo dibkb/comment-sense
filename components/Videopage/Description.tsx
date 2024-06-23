@@ -3,54 +3,12 @@ import React, { Fragment, memo, useState } from "react";
 import { processPart, processText } from "@/utils"; // Utility functions
 import { PinBottomIcon, PinTopIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import RenderParts from "./Rendertextparts";
 
 // Define the interface for DescriptionProps and RenderPartProps
 interface DescriptionProps {
   text: string;
 }
-interface RenderPartProps {
-  parts: string[];
-  urls: string[] | null;
-}
-// Component to render parts of the text, including URLs and timestamps
-const RenderParts = ({ parts, urls }: RenderPartProps) => {
-  return (
-    <>
-      {parts.map((part, index) => {
-        const { timeParts, times } = processPart(part); // Process each part for timestamps
-        return (
-          <Fragment key={index}>
-            {timeParts.map((timePart, timeIndex) => (
-              <Fragment key={timeIndex}>
-                {timePart}
-                {times && times[timeIndex] && (
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-800 hover:underline"
-                  >
-                    {times[timeIndex]}
-                  </a>
-                )}
-              </Fragment>
-            ))}
-            {urls && urls[index] && (
-              <a
-                href={urls[index]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-800 hover:underline"
-              >
-                {urls[index]}
-              </a>
-            )}
-          </Fragment>
-        );
-      })}
-    </>
-  );
-};
 
 // Main component to render the description text
 const Description = ({ text }: DescriptionProps) => {
