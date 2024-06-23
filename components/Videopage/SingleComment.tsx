@@ -8,6 +8,7 @@ import Sentiment from "./Sentiment";
 import { cn } from "@/lib/utils";
 import Emotion from "./Emotion";
 import Commenttext from "./Commenttext";
+import { Card } from "../ui/card";
 interface Commentprops {
   comment: Comment;
   type: "emotion" | "sentiment";
@@ -15,12 +16,7 @@ interface Commentprops {
 const SingleComment = ({ comment, type }: Commentprops) => {
   const [showTrans, setShowTrans] = useState(false);
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-1 rounded-lg px-4 py-2 border border-dashed bg-zinc-50 border-stone-200"
-        // getBgColor(comment.sentiment.label)
-      )}
-    >
+    <Card className="px-4 py-2 ">
       {/* photo and name and time */}
       <div className="flex items-center justify-between">
         <Link
@@ -87,7 +83,7 @@ const SingleComment = ({ comment, type }: Commentprops) => {
           />
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

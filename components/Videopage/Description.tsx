@@ -4,6 +4,7 @@ import { processPart, processText } from "@/utils"; // Utility functions
 import { PinBottomIcon, PinTopIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import RenderParts from "./Rendertextparts";
+import { Card } from "../ui/card";
 
 // Define the interface for DescriptionProps and RenderPartProps
 interface DescriptionProps {
@@ -16,7 +17,7 @@ const Description = ({ text }: DescriptionProps) => {
   const doubleLines = text.split("\n\n");
   const [showLess, setShowLess] = useState(true);
   return (
-    <div className="bg-stone-100 p-4 rounded-[8px]">
+    <Card className="bg-stone-100 p-4">
       <div
         className={cn(
           "text-sm overflow-hidden",
@@ -61,7 +62,7 @@ const Description = ({ text }: DescriptionProps) => {
           </>
         )}
       </button>
-    </div>
+    </Card>
   );
 };
 

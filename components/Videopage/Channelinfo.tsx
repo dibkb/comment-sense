@@ -8,7 +8,7 @@ interface ChannelInfo {
 }
 const ChannelInfo = ({ apiResponse }: ChannelInfo) => (
   <Link
-    className="flex items-center gap-2 w-min px-2 py-1 rounded-xl hover:bg-stone-300"
+    className="flex items-center gap-2 w-min px-2 py-1 rounded-xl hover:bg-stone-100"
     href={apiResponse?.channel?.url || "#"}
     target="_blank"
   >
