@@ -7,6 +7,7 @@ import CommentSectionWrapper from "@/components/Videopage/CommentSection";
 import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { isYouTubeId } from "@/utils/regx";
 import VideoContent from "@/components/Videopage/VideoContent";
+import { Card } from "@/components/ui/card";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,7 @@ export default function Video() {
     );
 
   return (
-    <main className="flex px-8">
+    <main className="flex px-8 pt-16">
       {/* right */}
       <div className="w-2/3">
         <Suspense>
@@ -49,7 +50,9 @@ export default function Video() {
         </Suspense>
       </div>
       {/* left */}
-      <div className="w-1/3 border fixed right-0 h-[100vh]">chatbot</div>
+      {/* <div className="w-1/3 fixed right-0 h-[100vh] z-50">
+        <Card className="h-full">Chatbot</Card>
+      </div> */}
     </main>
   );
 }

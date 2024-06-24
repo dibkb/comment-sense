@@ -5,7 +5,7 @@ import Arrowright from "../svg/Arrowright";
 
 const Navbar = () => {
   return (
-    <main className="border-b">
+    <main className="border-b fixed w-full z-[1000] bg-white">
       <div
         className={cn(
           "px-8 py-2 flex items-center justify-between",
