@@ -38,11 +38,18 @@ export default function Video() {
     );
 
   return (
-    <Suspense>
-      <main className="px-8 flex flex-col gap-4 max-w-[900px]">
-        {mainContent}
-        <CommentSectionWrapper />
-      </main>
-    </Suspense>
+    <main className="flex px-8">
+      {/* right */}
+      <div className="w-2/3">
+        <Suspense>
+          <main className="flex flex-col gap-4">
+            {mainContent}
+            <CommentSectionWrapper />
+          </main>
+        </Suspense>
+      </div>
+      {/* left */}
+      <div className="w-1/3 border fixed right-0 h-[100vh]">chatbot</div>
+    </main>
   );
 }
