@@ -4,7 +4,7 @@ import { heading } from "@/fonts";
 import { cn } from "@/lib/utils";
 export default function Home() {
   return (
-    <main className="flex flex-col gap-6 h-[100vh] border justify-center items-center pb-72">
+    <main className="flex flex-col gap-6 h-[100vh] border justify-center items-center pb-72 px-8">
       <span className="flex flex-col gap-4 items-center">
         <h2
           className={cn(

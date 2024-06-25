@@ -50,9 +50,9 @@ export default function Video() {
         </Suspense>
       </div>
       {/* left */}
-      {/* <div className="w-1/3 fixed right-0 h-[100vh] z-50">
-        <Card className="h-full">Chatbot</Card>
-      </div> */}
+      <div className="w-1/3 fixed right-0 h-[100vh] z-50 pr-8 pt-[24px]">
+        <Card className="h-full"></Card>
+      </div>
     </main>
   );
 }
