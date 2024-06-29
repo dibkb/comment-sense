@@ -23,7 +23,7 @@ export default function RootLayout({
       ></meta>
       <body className={body.className}>
         <Navbar />
-        {children}
+        <main className="mt-12">{children}</main>
         <Toaster />
       </body>
     </html>

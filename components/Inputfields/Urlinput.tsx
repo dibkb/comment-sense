@@ -9,7 +9,10 @@ interface Urlinput {
 }
 const Urlinput = ({ state, setState, submitHandler, children }: Urlinput) => {
   return (
-    <form onSubmit={submitHandler} className="w-full flex flex-row rounded-xl">
+    <form
+      onSubmit={submitHandler}
+      className="w-full flex flex-row rounded-xl text-sm sm:text-base"
+    >
       <input
         type="text"
         value={state}
@@ -20,7 +23,7 @@ const Urlinput = ({ state, setState, submitHandler, children }: Urlinput) => {
       <button
         type="submit"
         className={cn(
-          "hover:bg-stone-700 hover:text-white rounded-2xl px-4",
+          "hover:bg-stone-700 text-xs sm:text-base hover:text-white rounded-2xl px-4 py-2",
           heading.className
         )}
       >
