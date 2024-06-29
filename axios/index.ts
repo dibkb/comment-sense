@@ -1,7 +1,11 @@
-import axios from "axios";
-export const nodeApiInstance = axios.create({
+import Axios from "axios";
+import { setupCache } from "axios-cache-interceptor";
+
+const $nodeApiInstance = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_NODE_API,
 });
-export const fastApiInstance = axios.create({
+const $fastApiInstance = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_FAST_API,
 });
+export const nodeApiInstance = setupCache($nodeApiInstance);
+export const fastApiInstance = setupCache($fastApiInstance);
