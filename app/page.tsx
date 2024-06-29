@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export default function Home() {
   return (
     <main
-      className="flex flex-col gap-6 justify-center items-center px-2 sm:px-8 sm:pb-72 pb-24 border"
+      className="flex flex-col gap-6 mt-24 sm:mt-0 sm:justify-center items-center px-4 sm:px-8 sm:pb-72 "
       style={{
         height: "calc(100vh - 3rem)",
       }}
