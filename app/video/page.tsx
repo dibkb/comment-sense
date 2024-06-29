@@ -39,9 +39,9 @@ export default function Video() {
     );
 
   return (
-    <main className="flex px-8 pt-16">
+    <main className="flex px-4 sm:px-8">
       {/* right */}
-      <div className="w-2/3">
+      <div className="w-full max-w-[1080px] mx-auto">
         <Suspense>
           <main className="flex flex-col gap-4">
             {mainContent}
@@ -50,9 +50,9 @@ export default function Video() {
         </Suspense>
       </div>
       {/* left */}
-      <div className="w-1/3 fixed right-0 h-[100vh] z-50 pr-8 pt-[24px]">
+      {/* <div className="w-1/3 fixed right-0 h-[100vh] z-50 pr-8 pt-[24px]">
         <Card className="h-full"></Card>
-      </div>
+      </div> */}
     </main>
   );
 }
