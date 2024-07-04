@@ -10,8 +10,8 @@ interface RealtedVideos {
 }
 const RealtedVideos = ({ apiResponse }: RealtedVideos) => {
   const videos = apiResponse.videos.map((video) => (
-    <Link key={video.id} href={`/video?ytid=${video.id}`}>
-      <Card>
+    <Link key={video.id} href={`/video?ytid=${video.id}`} className="group">
+      <Card className="group-hover:bg-stone-100">
         <AspectRatio ratio={16 / 9} className="bg-muted relative">
           <Image
             src={video.thumbnails[0].url}

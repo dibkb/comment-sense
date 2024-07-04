@@ -60,7 +60,7 @@ export default function Video() {
         {/* middle */}
         <div className="flex-1 overflow-y-auto p-4">
           <Suspense>
-            <main className="flex-1 flex-col gap-4">
+            <main className="flex-1 flex flex-col gap-4">
               {mainContent}
               <CommentSectionWrapper />
             </main>
