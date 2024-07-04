@@ -72,7 +72,7 @@ export default function Video() {
         className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
         style={{ height: "calc(100% - 5rem)" }}
       >
-        <Card className="h-full">fdsfs</Card>
+        <Card className="h-full">Chat</Card>
       </div>
     </>
   );
