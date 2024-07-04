@@ -6,7 +6,6 @@ interface VideoHeaderProps {
   apiResponse: VideoInfo;
 }
 const VideoHeader = ({ apiResponse }: VideoHeaderProps) => {
-  console.log(apiResponse);
   return (
     <span className="border-b pb-2">
       <h1 className="text-xl font-medium">{apiResponse?.title}</h1>
