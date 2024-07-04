@@ -1,12 +1,13 @@
 "use client";
 
 import { isYouTubeLink } from "@/utils/regx";
-import React, { FormEventHandler, useState } from "react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
 import { getYouTubeVideoId } from "@/utils";
 import Urlinput from "../Inputfields/Urlinput";
+import { useRelatedVideos } from "@/hooks/useRelatedVideos";
 
 interface Videourlinputprops {
   buttonText: string;
@@ -14,11 +15,11 @@ interface Videourlinputprops {
 const Videourlinput = ({ buttonText }: Videourlinputprops) => {
   const router = useRouter();
   const { toast } = useToast();
-  const [url, setUrl] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const submitHandler: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const id = getYouTubeVideoId(url);
-    if (isYouTubeLink(url) && id) {
+    const id = getYouTubeVideoId(search);
+    if (isYouTubeLink(search) && id) {
       router.push(`/video?ytid=${id}`);
     } else {
       toast({
@@ -36,11 +37,20 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
       });
     }
   };
+  const { loading, apiResponse } = useRelatedVideos(search);
+  console.log(apiResponse);
   return (
-    <span className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group">
-      <Urlinput state={url} setState={setUrl} submitHandler={submitHandler}>
+    <span className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative">
+      <Urlinput
+        state={search}
+        setState={setSearch}
+        submitHandler={submitHandler}
+      >
         {buttonText}
       </Urlinput>
+      <div className="absolute w-full rounded-lg border bg-white h-60 z-50 top-16 left-0 p-2">
+        {}
+      </div>
     </span>
   );
 };

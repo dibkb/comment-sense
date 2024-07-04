@@ -14,7 +14,7 @@ interface VideoContentProps {
 const VideoContent = ({ apiResponse }: VideoContentProps) => (
   <>
     <div className="flex justify-center">
-      <Videourlinput buttonText="Go" />
+      <Videourlinput buttonText="Search" />
     </div>
     <div className="w-full mt-4 mx-auto shadow-xl rounded-2xl">
       <div className="relative pt-[56.25%] rounded-2xl">

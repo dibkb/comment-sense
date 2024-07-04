@@ -7,15 +7,30 @@ import { ToastAction } from "@radix-ui/react-toast";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const useDebounce = (value: string, delay: number): string => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 export const useRelatedVideos = (title: string) => {
   const [loading, setLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState<SearchResults>();
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
+  const debouncedTitle = useDebounce(title, 300); //
   useEffect(() => {
-    if (title.length) {
+    if (debouncedTitle.length) {
       setLoading(true);
-      getRelatedVideo(title)
+      getRelatedVideo(debouncedTitle)
         .then((res) => {
           setApiResponse(res);
         })
@@ -29,7 +44,7 @@ export const useRelatedVideos = (title: string) => {
     } else {
       // TODO : invalid videoid or missing videoid
     }
-  }, [title]);
+  }, [debouncedTitle]);
   return {
     loading,
     apiResponse,

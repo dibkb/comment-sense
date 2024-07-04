@@ -18,7 +18,7 @@ const Urlinput = ({ state, setState, submitHandler, children }: Urlinput) => {
         value={state}
         onChange={(e) => setState(e.target.value)}
         className="flex-1 outline-none px-4 rounded-full bg-transparent font-medium"
-        placeholder="https://www.youtube.com/watch?v=pwN8u6HFH8U"
+        placeholder="Search or enter YouTube link"
       />
       <button
         type="submit"
