@@ -1,12 +1,10 @@
 import { type SearchResults } from "@/types/nodeapi";
 import React from "react";
-import { Card } from "../ui/card";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
 import Link from "next/link";
-import { Avatar } from "@radix-ui/react-avatar";
 import Play from "../svg/Play";
+import ArrowUpRight from "../svg/ArrowUpRight";
 interface SearchResultsInterface {
   searchVideos: SearchResults;
 }
@@ -32,10 +30,25 @@ const SearchResults = ({ searchVideos }: SearchResultsInterface) => {
           <main className="flex-1 text-xs flex flex-col gap-1">
             <h1 className="line-clamp-1">{video.title}</h1>
             <p className="flex items-center gap-1">
-              <Play className={"size-3 text-stone-400"} />
+              <Play className={"size-3 text-stone-500"} />
               <h2 className="line-clamp-1">{video.channel.name}</h2>
             </p>
+            <span className="text-[10px] text-stone-500 flex gap-4">
+              <p className="flex items-center gap-2">
+                <span className="size-1 rounded-full bg-stone-500" />
+                {video.views.prettyLong}
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="size-1 rounded-full bg-stone-500" />
+                {video.duration.pretty}
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="size-1 rounded-full bg-stone-500" />
+                {video.published.pretty}
+              </p>
+            </span>
           </main>
+          <ArrowUpRight className="size-3 text-stone-400" />
         </Link>
       ))}
     </div>
