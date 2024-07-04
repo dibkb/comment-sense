@@ -8,6 +8,8 @@ import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { isYouTubeId } from "@/utils/regx";
 import VideoContent from "@/components/Videopage/VideoContent";
 import { Card } from "@/components/ui/card";
+import { useRelatedVideos } from "@/hooks/useRelatedVideos";
+import RealtedVideos from "@/components/Videopage/RelatedVideos";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +17,12 @@ export default function Video() {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
   const { loading, apiResponse } = useGetBasicInfo();
+  const { loading: loadingRelated, apiResponse: relatedVideos } =
+    useRelatedVideos(
+      apiResponse?.title.slice(0, 12) +
+        " " +
+        apiResponse?.channel.name.slice(0, 12) || ""
+    );
   const [isClient, setIsClient] = useState(false);
 
   // Ensure this runs only on client-side
@@ -38,22 +46,34 @@ export default function Video() {
       <VideoContent apiResponse={apiResponse} />
     );
 
+  const relatedContent =
+    !relatedVideos || loadingRelated ? (
+      ""
+    ) : (
+      <RealtedVideos apiResponse={relatedVideos} />
+    );
   return (
-    <main className="flex px-4 sm:px-8 b">
-      {/* right */}
-      <div className="w-2/3 flex gap-4 mt-4">
-        <div className="w-1/6 border"></div>
-        <Suspense>
-          <main className="flex-1 flex-col gap-4">
-            {mainContent}
-            <CommentSectionWrapper />
-          </main>
-        </Suspense>
-      </div>
+    <>
       {/* left */}
-      <div className="w-1/3 fixed right-0 h-[100vh] z-50 pr-8 mt-4">
-        <Card className="h-full"></Card>
+      <div className="w-9/12 flex pl-4 sm:pl-8 ">
+        <div className="w-36 mt-4 overflow-clip">{relatedContent}</div>
+        {/* middle */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <Suspense>
+            <main className="flex-1 flex-col gap-4">
+              {mainContent}
+              <CommentSectionWrapper />
+            </main>
+          </Suspense>
+        </div>
       </div>
-    </main>
+      {/* right */}
+      <div
+        className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
+        style={{ height: "calc(100% - 5rem)" }}
+      >
+        <Card className="h-full">fdsfs</Card>
+      </div>
+    </>
   );
 }
