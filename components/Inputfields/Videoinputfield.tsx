@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { getYouTubeVideoId } from "@/utils";
 import Urlinput from "../Inputfields/Urlinput";
 import { useRelatedVideos } from "@/hooks/useRelatedVideos";
+import SearchResults from "./SearchResults";
+import { Card } from "../ui/card";
 
 interface Videourlinputprops {
   buttonText: string;
@@ -38,7 +40,8 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
     }
   };
   const { loading, apiResponse } = useRelatedVideos(search);
-  console.log(apiResponse);
+  const mainContent =
+    loading || !apiResponse ? "" : <SearchResults searchVideos={apiResponse} />;
   return (
     <span className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative">
       <Urlinput
@@ -48,9 +51,9 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
       >
         {buttonText}
       </Urlinput>
-      <div className="absolute w-full rounded-lg border bg-white h-60 z-50 top-16 left-0 p-2">
-        {}
-      </div>
+      <Card className="absolute w-full border bg-white h-60 z-50 top-16 left-0 overflow-scroll">
+        {mainContent}
+      </Card>
     </span>
   );
 };
