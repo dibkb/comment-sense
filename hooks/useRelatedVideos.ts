@@ -1,10 +1,7 @@
 "use client";
 
 import { getRelatedVideo } from "@/apicall/nodeapi";
-import { toast } from "@/components/ui/use-toast";
 import { SearchResults, VideoInfo } from "@/types/nodeapi";
-import { ToastAction } from "@radix-ui/react-toast";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const useDebounce = (value: string, delay: number): string => {

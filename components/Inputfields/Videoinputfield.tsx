@@ -25,22 +25,6 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
 
   const { loading, apiResponse } = useRelatedVideos(search);
 
-  // Show error toast
-  const showErrorToast = () => {
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong. 😢",
-      description: "The URL you entered is not a valid YouTube URL",
-      action: (
-        <ToastAction
-          altText="Try again"
-          className="border border-red-400 px-2 py-1 rounded-[4px]"
-        >
-          Try again
-        </ToastAction>
-      ),
-    });
-  };
   // Handle form submission
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -48,7 +32,7 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
     if (isYouTubeLink(search) && videoId) {
       router.push(`/video?ytid=${videoId}`);
     } else {
-      showErrorToast();
+      router.push(`/search?query=${search}`);
     }
   };
 
