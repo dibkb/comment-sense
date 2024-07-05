@@ -1,7 +1,7 @@
 "use client";
 
 import { isYouTubeLink } from "@/utils/regx";
-import React, { FormEventHandler, useEffect, useState } from "react";
+import React, { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
@@ -42,8 +42,36 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
   const { loading, apiResponse } = useRelatedVideos(search);
   const mainContent =
     loading || !apiResponse ? "" : <SearchResults searchVideos={apiResponse} />;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const componentRef = useRef<HTMLSpanElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      componentRef.current &&
+      !componentRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    if (apiResponse) {
+      setIsOpen(true);
+    }
+  }, [apiResponse]);
   return (
-    <span className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative">
+    <span
+      className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative"
+      ref={componentRef}
+      onClick={() => setIsOpen(true)}
+    >
       <Urlinput
         state={search}
         setState={setSearch}
@@ -51,9 +79,11 @@ const Videourlinput = ({ buttonText }: Videourlinputprops) => {
       >
         {buttonText}
       </Urlinput>
-      <Card className="absolute w-full border bg-white h-60 z-50 top-16 left-0 overflow-scroll">
-        {mainContent}
-      </Card>
+      {isOpen && (
+        <Card className="absolute w-full border bg-white h-72 z-50 top-16 left-0 overflow-scroll">
+          {mainContent}
+        </Card>
+      )}
     </span>
   );
 };
