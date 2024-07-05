@@ -1,91 +1,118 @@
 "use client";
 
+import { getYouTubeVideoId } from "@/utils";
 import { isYouTubeLink } from "@/utils/regx";
 import React, { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
-import { getYouTubeVideoId } from "@/utils";
 import Urlinput from "../Inputfields/Urlinput";
 import { useRelatedVideos } from "@/hooks/useRelatedVideos";
 import SearchResults from "./SearchResults";
 import { Card } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
 
-interface Videourlinputprops {
+interface VideoUrlInputProps {
   buttonText: string;
 }
-const Videourlinput = ({ buttonText }: Videourlinputprops) => {
+
+const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const [search, setSearch] = useState<string>("");
-  const submitHandler: FormEventHandler<HTMLFormElement> = (event) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLSpanElement>(null);
+
+  const { loading, apiResponse } = useRelatedVideos(search);
+
+  // Show error toast
+  const showErrorToast = () => {
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong. 😢",
+      description: "The URL you entered is not a valid YouTube URL",
+      action: (
+        <ToastAction
+          altText="Try again"
+          className="border border-red-400 px-2 py-1 rounded-[4px]"
+        >
+          Try again
+        </ToastAction>
+      ),
+    });
+  };
+  // Handle form submission
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const id = getYouTubeVideoId(search);
-    if (isYouTubeLink(search) && id) {
-      router.push(`/video?ytid=${id}`);
+    const videoId = getYouTubeVideoId(search);
+    if (isYouTubeLink(search) && videoId) {
+      router.push(`/video?ytid=${videoId}`);
     } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong. 😢",
-        description: "The url you entered is not a valid youtube url",
-        action: (
-          <ToastAction
-            altText="Try again"
-            className="border border-red-400 px-2 py-1 rounded-[4px]"
-          >
-            Try again
-          </ToastAction>
-        ),
-      });
+      showErrorToast();
     }
   };
-  const { loading, apiResponse } = useRelatedVideos(search);
-  const mainContent =
-    loading || !apiResponse ? "" : <SearchResults searchVideos={apiResponse} />;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const componentRef = useRef<HTMLSpanElement>(null);
-
+  // Handle click outside the dropdown to close it
   const handleClickOutside = (event: MouseEvent) => {
     if (
-      componentRef.current &&
-      !componentRef.current.contains(event.target as Node)
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
     ) {
-      setIsOpen(false);
+      setIsDropdownOpen(false);
     }
   };
 
+  // Add and clean up event listener for detecting clicks outside the dropdown
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Toggle dropdown visibility based on API response and input URL
   useEffect(() => {
-    if (apiResponse) {
-      setIsOpen(true);
+    if (search.length) {
+      setIsDropdownOpen(true);
+    } else {
+      setIsDropdownOpen(false);
     }
-  }, [apiResponse]);
+  }, [search]);
+
+  // Render search results
+  const renderSearchResults = () => {
+    if (loading || !apiResponse) {
+      return (
+        <div className="flex flex-col gap-3 p-2">
+          {new Array(4).fill(0).map((a) => (
+            <Skeleton key={a} className="border w-full h-16" />
+          ))}
+        </div>
+      );
+    }
+    return <SearchResults searchVideos={apiResponse} />;
+  };
+
   return (
     <span
       className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative"
-      ref={componentRef}
-      onClick={() => setIsOpen(true)}
+      ref={dropdownRef}
+      onClick={() => setIsDropdownOpen(true)}
     >
       <Urlinput
         state={search}
         setState={setSearch}
-        submitHandler={submitHandler}
+        submitHandler={handleSubmit}
       >
         {buttonText}
       </Urlinput>
-      {isOpen && (
+      {isDropdownOpen && (
         <Card className="absolute w-full border bg-white h-72 z-50 top-16 left-0 overflow-scroll">
-          {mainContent}
+          {renderSearchResults()}
         </Card>
       )}
     </span>
   );
 };
 
-export default Videourlinput;
+export default VideoUrlInput;
