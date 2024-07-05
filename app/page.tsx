@@ -34,7 +34,9 @@ export default function Home() {
         Discover What Your Favorite Channels and Creators Really Think with Our
         Advanced Sentiment Analysis Tools 🛠️
       </p>
-      <Videourlinput buttonText={"See Demo"} />
+      <div className="max-w-[900px] w-full">
+        <Videourlinput buttonText={"Search"} />
+      </div>
       <span className="flex flex-col sm:flex-row gap-3 sm:gap-9 w-full sm:justify-center">
         <Features />
       </span>

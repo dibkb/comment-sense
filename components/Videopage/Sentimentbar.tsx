@@ -30,14 +30,14 @@ const SentimentBar: React.FC<SentimentBarProps> = ({
         title={`Positive: ${positive}`}
       ></div>
       <div
-        className="bg-[#FE5E57]"
-        style={{ width: `${negativeWidth}%` }}
-        title={`Negative: ${negative}`}
-      ></div>
-      <div
         className="bg-[#FDBB35]"
         style={{ width: `${neutralWidth}%` }}
         title={`Neutral: ${neutral}`}
+      ></div>
+      <div
+        className="bg-[#FE5E57]"
+        style={{ width: `${negativeWidth}%` }}
+        title={`Negative: ${negative}`}
       ></div>
     </div>
   );

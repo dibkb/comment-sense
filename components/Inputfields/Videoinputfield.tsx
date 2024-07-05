@@ -65,7 +65,7 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
 
   // Render search results
   const renderSearchResults = () => {
-    if (loading || !apiResponse) {
+    if (loading) {
       return (
         <div className="flex flex-col gap-3 p-2">
           {new Array(4).fill(0).map((a) => (
@@ -74,6 +74,7 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
         </div>
       );
     }
+    if (!apiResponse) return;
     return <SearchResults searchVideos={apiResponse} />;
   };
 
@@ -81,7 +82,9 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
     <span
       className="flex border rounded-xl sm:rounded-2xl p-1 w-full hover:border-stone-400 group relative"
       ref={dropdownRef}
-      onClick={() => setIsDropdownOpen(true)}
+      onClick={() => {
+        search.length && setIsDropdownOpen(true);
+      }}
     >
       <Urlinput
         state={search}
