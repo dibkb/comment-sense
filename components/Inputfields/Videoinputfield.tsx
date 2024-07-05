@@ -56,12 +56,12 @@ const VideoUrlInput = ({ buttonText }: VideoUrlInputProps) => {
 
   // Toggle dropdown visibility based on API response and input URL
   useEffect(() => {
-    if (search.length) {
+    if ((loading || apiResponse) && search.length) {
       setIsDropdownOpen(true);
     } else {
       setIsDropdownOpen(false);
     }
-  }, [search]);
+  }, [search, loading, apiResponse]);
 
   // Render search results
   const renderSearchResults = () => {

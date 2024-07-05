@@ -4,7 +4,7 @@ import SearchResults from "@/components/Inputfields/SearchResults";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRelatedVideos } from "@/hooks/useRelatedVideos";
 import { useSearchParams } from "next/navigation";
-
+import VideoUrlInput from "@/components/Inputfields/Videoinputfield";
 function Search() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
@@ -22,6 +22,13 @@ function Search() {
     }
     return <SearchResults searchVideos={apiResponse} size={"l"} />;
   };
-  return <div className="px-4 sm:px-8 ">{renderSearchResults()}</div>;
+  return (
+    <main className="px-4 sm:px-8 pt-4">
+      <div className="flex justify-center mb-4">
+        <VideoUrlInput buttonText="Search" />
+      </div>
+      <div className="">{renderSearchResults()}</div>
+    </main>
+  );
 }
 export default Search;
