@@ -10,6 +10,12 @@ import SentimentTab from "./Tabs/SentimentTab";
 import { PaginationNext, PaginationPrevious } from "../ui/pagination";
 import CommentSkeleton from "../SkeletonLoaders/CommentSkeleton";
 import EmotionTab from "./Tabs/EmotionTab";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 
 // Create a QueryClient instance to be used in the QueryClientProvider
 const queryClient = new QueryClient({
@@ -82,6 +88,17 @@ const CommentSection = () => {
         <p className={cn("text-center", heading.className)}>
           You are viewing page {range.stop / 50}
         </p>
+
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger
+              className={cn(heading.className, "font-normal text-lg")}
+            >
+              See Visualizations
+            </AccordionTrigger>
+            <AccordionContent></AccordionContent>
+          </AccordionItem>
+        </Accordion>
         <Tabs defaultValue="sentiment" className="w-full">
           <TabsList className="w-full flex">
             <TabsTrigger value="sentiment" className="flex-1">
