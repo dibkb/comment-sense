@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import Visualization from "./Visualizations";
 
 // Create a QueryClient instance to be used in the QueryClientProvider
 const queryClient = new QueryClient({
@@ -96,7 +97,9 @@ const CommentSection = () => {
             >
               See Visualizations
             </AccordionTrigger>
-            <AccordionContent></AccordionContent>
+            <AccordionContent>
+              <Visualization />
+            </AccordionContent>
           </AccordionItem>
         </Accordion>
         <Tabs defaultValue="sentiment" className="w-full">
