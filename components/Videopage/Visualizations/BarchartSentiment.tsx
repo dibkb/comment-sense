@@ -55,7 +55,7 @@ export function BarchartSentiment() {
         <CardTitle>Sentiment Count</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[400px]">
+        <ChartContainer config={chartConfig} className="max-h-[300px]">
           <BarChart
             accessibilityLayer
             data={chartData}

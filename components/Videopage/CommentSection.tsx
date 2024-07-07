@@ -93,7 +93,7 @@ const CommentSection = () => {
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger
-              className={cn(heading.className, "font-normal text-lg")}
+              className={cn(heading.className, "font-normal text-xl")}
             >
               See Visualizations
             </AccordionTrigger>

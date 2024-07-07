@@ -17,13 +17,13 @@ const RealtedVideos = ({ apiResponse }: RealtedVideos) => {
             src={video.thumbnails[0].url}
             alt={video.title}
             fill
-            className="rounded-md object-cover"
+            className="rounded-t-md object-cover"
           />
           <Badge className="absolute bottom-0 right-0" variant={"default"}>
             {video.duration.text}
           </Badge>
         </AspectRatio>
-        <div className="p-[4px] flex flex-col gap-1">
+        <div className="p-2 flex flex-col gap-1">
           <h1 className="text-xs line-clamp-2">{video.title}</h1>
           <h2 className="text-xs line-clamp-1 text-stone-500">
             {video.channel.name}

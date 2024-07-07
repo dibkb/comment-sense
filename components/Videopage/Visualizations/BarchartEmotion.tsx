@@ -42,7 +42,7 @@ export function BarchartEmotion() {
     }));
   Object.entries(emotionCounts)
     .filter(([, count]) => count !== 0)
-    .forEach(([key, count]) => {
+    .forEach(([key, _]) => {
       chartConfig[emotionEmojiMap[key as emotionType]] = {
         label: key,
       };
@@ -59,7 +59,8 @@ export function BarchartEmotion() {
             data={chartData}
             layout="vertical"
             margin={{
-              left: 36,
+              left: 32,
+              right: 32,
             }}
           >
             <CartesianGrid horizontal={false} />
@@ -83,14 +84,14 @@ export function BarchartEmotion() {
                 position="insideLeft"
                 offset={8}
                 className="fill-[--color-label]"
-                fontSize={16}
+                fontSize={12}
               />
               <LabelList
                 dataKey="count"
                 position="right"
                 offset={8}
                 className="fill-foreground"
-                fontSize={14}
+                fontSize={10}
               />
             </Bar>
           </BarChart>
