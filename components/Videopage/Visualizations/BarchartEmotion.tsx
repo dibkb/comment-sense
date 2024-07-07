@@ -11,7 +11,6 @@ import {
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -19,54 +18,48 @@ import {
 import { colorMap, emotionBgColor } from "@/utils/colors";
 import { useCommentContext } from "@/context/CommentContext";
 import { useMemo } from "react";
-import { calculateEmotions, calculateSentiment } from "@/utils";
-import { emotionType, sentimentType } from "@/types/fastapi";
-interface chartData {
-  label: string;
-  count: number;
-  fill: string;
-}
-// const __chartData: chartData[] = [
-//   { label: "positive", count: 0, fill: colorMap["positive"] },
-//   { label: "neutral", count: 0, fill: colorMap["neutral"] },
-//   { label: "negative", count: 0, fill: colorMap["negative"] },
-// ];
+import { calculateEmotions } from "@/utils";
+import { EmotionObj, emotionType, sentimentType } from "@/types/fastapi";
+import emotionEmojiMap from "@/utils/emojimap";
 
-const chartConfig = {
-  desktop: {
-    label: "Comments",
+const chartConfig: Record<string, { label: string }> = {
+  visitors: {
+    label: "Visitors",
   },
-  label: {
-    color: "hsl(var(--background))",
-  },
-} satisfies ChartConfig;
+};
 
 export function BarchartEmotion() {
   const { data } = useCommentContext();
   // State to manage selected emotion filter
   const emotionCounts = useMemo(() => calculateEmotions(data), [data]);
-  const chartData: chartData[] = [];
-  for (let key in emotionCounts) {
-    if (emotionCounts[key] !== 0)
-      chartData.push({
+  const chartData = Object.entries(emotionCounts)
+    .filter(([, count]) => count !== 0)
+    .map(([emotion, count]) => ({
+      label: emotionEmojiMap[emotion as emotionType],
+      count,
+      //   fill: "hsl(221.2 83.2% 53.3%)",
+      fill: emotionBgColor[emotion as emotionType],
+    }));
+  Object.entries(emotionCounts)
+    .filter(([, count]) => count !== 0)
+    .forEach(([key, count]) => {
+      chartConfig[emotionEmojiMap[key as emotionType]] = {
         label: key,
-        count: emotionCounts[key],
-        fill: emotionBgColor[key],
-      });
-  }
+      };
+    });
   return (
     <Card>
       <CardHeader>
         <CardTitle>Emotion Count</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[800px]">
+        <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
             data={chartData}
             layout="vertical"
             margin={{
-              right: 16,
+              left: 36,
             }}
           >
             <CartesianGrid horizontal={false} />
@@ -74,10 +67,10 @@ export function BarchartEmotion() {
               dataKey="label"
               type="category"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-              hide
+              tickFormatter={(value) =>
+                chartConfig[value as keyof typeof chartConfig]?.label || ""
+              }
             />
             <XAxis dataKey="count" type="number" hide />
             <ChartTooltip
@@ -88,7 +81,7 @@ export function BarchartEmotion() {
               <LabelList
                 dataKey="label"
                 position="insideLeft"
-                offset={16}
+                offset={8}
                 className="fill-[--color-label]"
                 fontSize={16}
               />
