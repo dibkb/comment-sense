@@ -29,7 +29,7 @@ function Search() {
       <div className="flex justify-center">
         <VideoUrlInput buttonText="Search" />
       </div>
-      <p
+      <span
         className={cn(
           "my-4 text-lg flex gap-1 justify-center",
           heading.className
@@ -37,7 +37,7 @@ function Search() {
       >
         Showing results for{" "}
         <p className="text-red-500 font-semibold">&#x301D; {query} &#x301E;</p>
-      </p>
+      </span>
       <div className="">{renderSearchResults()}</div>
     </main>
   );

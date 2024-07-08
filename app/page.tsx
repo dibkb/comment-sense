@@ -37,9 +37,9 @@ export default function Home() {
       <div className="max-w-[900px] w-full">
         <Videourlinput buttonText={"Search"} />
       </div>
-      <span className="flex flex-col sm:flex-row gap-3 sm:gap-9 w-full sm:justify-center">
+      {/* <span className="flex flex-col sm:flex-row gap-3 sm:gap-9 w-full sm:justify-center">
         <Features />
-      </span>
+      </span> */}
     </main>
   );
 }
