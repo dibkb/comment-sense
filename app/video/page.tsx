@@ -10,6 +10,7 @@ import VideoContent from "@/components/Videopage/VideoContent";
 import { Card } from "@/components/ui/card";
 import { useRelatedVideos } from "@/hooks/useRelatedVideos";
 import RealtedVideos from "@/components/Videopage/RelatedVideos";
+import Chatcomponent from "@/components/Videopage/Chat/Chatcomponent";
 
 export const dynamic = "force-dynamic";
 
@@ -72,7 +73,7 @@ export default function Video() {
         className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
         style={{ height: "calc(100% - 5rem)" }}
       >
-        <Card className="h-full">Chat</Card>
+        <Chatcomponent />
       </div>
     </>
   );
