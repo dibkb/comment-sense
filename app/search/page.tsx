@@ -24,6 +24,7 @@ function Search() {
     }
     return <SearchResults searchVideos={apiResponse} size={"l"} />;
   };
+  // TODO: error handling search
   return (
     <main className="px-4 sm:px-8 pt-4">
       <div className="flex justify-center">
