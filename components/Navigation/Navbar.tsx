@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import Arrowright from "../svg/Arrowright";
 import { UserButton } from "@clerk/nextjs";
+import Logo from "../svg/Logo";
 
 const Navbar = () => {
   return (
@@ -14,6 +15,7 @@ const Navbar = () => {
         )}
       >
         <button className={"flex items-center gap-2 font-medium"}>
+          <Logo className="text-stone-800" />
           <p>Comment</p>
           <p className="">Sense</p>
         </button>

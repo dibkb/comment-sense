@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useRef, useState } from "react";
 import Avatarchat from "./Avatar";
+import Logo from "@/components/svg/Logo";
 
 const Chatcomponent = () => {
   const { user } = useUser();
@@ -70,7 +71,7 @@ const Chatcomponent = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatsRender = (
     <main
-      className="gap-4 flex flex-col max-h-full overflow-y-scroll"
+      className="gap-4 flex flex-col max-h-full overflow-y-scroll hide-scrollbar"
       ref={chatContainerRef}
     >
       {chat.map((c, id) => {
@@ -84,6 +85,7 @@ const Chatcomponent = () => {
         else
           return (
             <span key={id}>
+              <Logo className="text-stone-800" />
               <p className="bg-transparent px-4 py-1 rounded-lg">{c.message}</p>
             </span>
           );
