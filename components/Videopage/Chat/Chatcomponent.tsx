@@ -1,10 +1,10 @@
 import Send from "@/components/svg/Send";
-import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useRef, useState } from "react";
 import Avatarchat from "./Avatar";
 import Logo from "@/components/svg/Logo";
+import Image from "next/image";
 
 const Chatcomponent = () => {
   const { user } = useUser();
@@ -67,7 +67,18 @@ const Chatcomponent = () => {
         chatContainerRef.current.scrollHeight;
     }
   }, [chat]);
-
+  const aiLoading = () => {
+    return (
+      <div className="flex items-center gap-2">
+        <Logo className="text-stone-800" />
+        <div className="flex space-x-1 justify-start">
+          <div className="h-2 w-2 bg-stone-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="h-2 w-2 bg-stone-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="h-2 w-2 bg-stone-500 rounded-full animate-bounce"></div>
+        </div>
+      </div>
+    );
+  };
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatsRender = (
     <main
@@ -90,6 +101,7 @@ const Chatcomponent = () => {
             </span>
           );
       })}
+      {aiLoading()}
     </main>
   );
   return (

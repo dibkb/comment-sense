@@ -15,7 +15,7 @@ const Navbar = () => {
         )}
       >
         <button className={"flex items-center gap-2 font-medium"}>
-          <Logo className="text-stone-800" />
+          <Logo className="text-stone-800 size-7" />
           <p>Comment</p>
           <p className="">Sense</p>
         </button>
