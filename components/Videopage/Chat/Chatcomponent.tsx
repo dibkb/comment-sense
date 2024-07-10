@@ -4,62 +4,34 @@ import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useRef, useState } from "react";
 import Avatarchat from "./Avatar";
 import Logo from "@/components/svg/Logo";
-import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { fastApiInstance } from "@/axios";
 
 const Chatcomponent = () => {
+  const searchParams = useSearchParams();
+  const ytid = searchParams.get("ytid");
   const { user } = useUser();
   const [query, setQuery] = useState("");
-  const [chat, setChat] = useState<AiChat[]>([
-    {
-      message: "Who is narendra modi",
-      creator: "user",
-    },
-    {
-      message:
-        "I'm sorry, but based on the provided video transcript context and video info, there is no information related to Narendra Modi. Therefore, I am unable to provide an answer to your question within the given context. If you have any other questions related to the content provided, feel free to ask.",
-      creator: "ai",
-    },
-    {
-      message: "Who is narendra modi",
-      creator: "user",
-    },
-    {
-      message:
-        "I'm sorry, but based on the provided video transcript context and video info, there is no information related to Narendra Modi. Therefore, I am unable to provide an answer to your question within the given context. If you have any other questions related to the content provided, feel free to ask.",
-      creator: "ai",
-    },
-    {
-      message: "Who is narendra modi",
-      creator: "user",
-    },
-    {
-      message:
-        "I'm sorry, but based on the provided video transcript context and video info, there is no information related to Narendra Modi. Therefore, I am unable to provide an answer to your question within the given context. If you have any other questions related to the content provided, feel free to ask.",
-      creator: "ai",
-    },
-    {
-      message: "Who is narendra modi",
-      creator: "user",
-    },
-    {
-      message:
-        "I'm sorry, but based on the provided video transcript context and video info, there is no information related to Narendra Modi. Therefore, I am unable to provide an answer to your question within the given context. If you have any other questions related to the content provided, feel free to ask.",
-      creator: "ai",
-    },
-    {
-      message: "Who is narendra modi",
-      creator: "user",
-    },
-    {
-      message:
-        "I'm sorry, but based on the provided video transcript context and video info, there is no information related to Narendra Modi. Therefore, I am unable to provide an answer to your question within the given context. If you have any other questions related to the content provided, feel free to ask.",
-      creator: "ai",
-    },
-  ]);
-  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  const [chat, setChat] = useState<AiChat[]>([]);
+  const [loading, setLoading] = useState(false);
+  async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setLoading(true);
     setChat((prev) => [...prev, { message: query, creator: "user" }]);
     setQuery("");
+    const res = await fastApiInstance.post("/chat", {
+      video_id: ytid,
+      query,
+    });
+    const data = res.data;
+    setChat((prev) => [
+      ...prev,
+      {
+        creator: "ai",
+        message: data.content,
+      },
+    ]);
+    setLoading(false);
   }
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -82,7 +54,7 @@ const Chatcomponent = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatsRender = (
     <main
-      className="gap-4 flex flex-col max-h-full overflow-y-scroll hide-scrollbar"
+      className="gap-4 flex flex-col w-full max-h-full overflow-y-scroll hide-scrollbar"
       ref={chatContainerRef}
     >
       {chat.map((c, id) => {
@@ -97,11 +69,11 @@ const Chatcomponent = () => {
           return (
             <span key={id}>
               <Logo className="text-stone-800" />
-              <p className="bg-transparent px-4 py-1 rounded-lg">{c.message}</p>
+              <p className="bg-white px-4 py-1 rounded-lg">{c.message}</p>
             </span>
           );
       })}
-      {aiLoading()}
+      {loading && aiLoading()}
     </main>
   );
   return (
@@ -118,11 +90,14 @@ const Chatcomponent = () => {
             onChange={(e) => setQuery(e.target.value)}
             className="flex-1 outline-none px-2 rounded-full bg-transparent font-medium"
             placeholder="Ask anything"
+            disabled={loading}
           />
           <button
             type="submit"
+            disabled={loading}
             className={cn(
-              "bg-stone-700 hover:bg-stone-900 text-white rounded-xl px-2 py-1 flex items-center gap-2"
+              "bg-stone-700 hover:bg-stone-900 text-white rounded-xl px-2 py-1 flex items-center gap-2",
+              loading && "opacity-30"
             )}
           >
             <Send />

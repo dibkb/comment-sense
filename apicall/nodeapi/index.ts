@@ -5,6 +5,7 @@ export const getVideoInfo = async (id: string): Promise<VideoInfo> => {
   const res = await nodeApiInstance.get(`get-info/${id}`);
   return res.data;
 };
+
 export const getRelatedVideo = async (
   title: string
 ): Promise<SearchResults> => {

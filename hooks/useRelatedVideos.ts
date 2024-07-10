@@ -22,7 +22,7 @@ const useDebounce = (value: string, delay: number): string => {
 export const useRelatedVideos = (title: string) => {
   const [loading, setLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState<SearchResults>();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
   const debouncedTitle = useDebounce(title, 300); //
   useEffect(() => {
     if (debouncedTitle.length) {
@@ -33,7 +33,7 @@ export const useRelatedVideos = (title: string) => {
         })
         .catch((error) => {
           const typedError = error as Error;
-          setError(typedError.message);
+          setError(true);
         })
         .finally(() => {
           setLoading(false);

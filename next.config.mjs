@@ -23,6 +23,12 @@ const nextConfig = {
         port: "",
         pathname: "/vi/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.dribbble.com",
+        port: "",
+        pathname: "/userupload/**",
+      },
     ],
   },
 };

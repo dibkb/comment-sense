@@ -7,10 +7,11 @@ import CommentSectionWrapper from "@/components/Videopage/CommentSection";
 import { useGetBasicInfo } from "@/hooks/useGetBasicInfo";
 import { isYouTubeId } from "@/utils/regx";
 import VideoContent from "@/components/Videopage/VideoContent";
-import { Card } from "@/components/ui/card";
 import { useRelatedVideos } from "@/hooks/useRelatedVideos";
 import RealtedVideos from "@/components/Videopage/RelatedVideos";
 import Chatcomponent from "@/components/Videopage/Chat/Chatcomponent";
+import { usePrepareChat } from "@/hooks/usePrepareChat";
+import Chatloading from "@/components/Videopage/Chat/Chatloading";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export default function Video() {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
   const { loading, apiResponse } = useGetBasicInfo();
+  const { loading: chatLoading, error: chatError } = usePrepareChat();
   const { loading: loadingRelated, apiResponse: relatedVideos } =
     useRelatedVideos(
       apiResponse?.title.slice(0, 12) +
@@ -73,7 +75,7 @@ export default function Video() {
         className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
         style={{ height: "calc(100% - 5rem)" }}
       >
-        <Chatcomponent />
+        {chatLoading ? <Chatloading /> : <Chatcomponent />}
       </div>
     </>
   );
