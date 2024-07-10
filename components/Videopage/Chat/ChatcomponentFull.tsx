@@ -6,10 +6,8 @@ import Avatarchat from "./Avatar";
 import Logo from "@/components/svg/Logo";
 import { useSearchParams } from "next/navigation";
 import { fastApiInstance } from "@/axios";
-interface Chatcomponent {
-  fullScreen?: boolean;
-}
-const Chatcomponent = ({ fullScreen = false }) => {
+
+const ChatcomponentFull = () => {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
   const { user } = useUser();
@@ -21,16 +19,16 @@ const Chatcomponent = ({ fullScreen = false }) => {
     setLoading(true);
     setChat((prev) => [...prev, { message: query, creator: "user" }]);
     setQuery("");
-    const res = await fastApiInstance.post("/chat", {
-      video_id: ytid,
-      query,
-    });
-    const data = res.data;
+    // const res = await fastApiInstance.post("/chat", {
+    //   video_id: ytid,
+    //   query,
+    // });
+    // const data = res.data;
     setChat((prev) => [
       ...prev,
       {
         creator: "ai",
-        message: data.content,
+        message: query,
       },
     ]);
     setLoading(false);
@@ -79,16 +77,7 @@ const Chatcomponent = ({ fullScreen = false }) => {
     </main>
   );
   return (
-    <div
-      className={cn(
-        `${
-          fullScreen
-            ? "absolute w-[calc(100vw)] h-[calc(100vh)] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
-            : "h-full"
-        } `,
-        "h-full text-sm p-2 rounded-lg bg-stone-50"
-      )}
-    >
+    <div className=" text-sm p-2 rounded-lg bg-stone-50">
       <div className="relative h-full flex items-end pb-12">
         {chatsRender}
         <form
@@ -120,7 +109,7 @@ const Chatcomponent = ({ fullScreen = false }) => {
   );
 };
 
-export default Chatcomponent;
+export default ChatcomponentFull;
 
 interface AiChat {
   message: string;

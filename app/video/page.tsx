@@ -13,6 +13,8 @@ import Chatcomponent from "@/components/Videopage/Chat/Chatcomponent";
 import { usePrepareChat } from "@/hooks/usePrepareChat";
 import Chatloading from "@/components/Videopage/Chat/Chatloading";
 import useGetWidth from "@/hooks/useGetWidth";
+import Logo from "@/components/svg/Logo";
+import ChatcomponentFull from "@/components/Videopage/Chat/ChatcomponentFull";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +31,7 @@ export default function Video() {
     );
   const { width } = useGetWidth();
   const [isClient, setIsClient] = useState(false);
-
+  const [openChat, setOpenChat] = useState(false);
   // Ensure this runs only on client-side
   useEffect(() => {
     setIsClient(true);
@@ -58,6 +60,36 @@ export default function Video() {
       <RealtedVideos apiResponse={relatedVideos} />
     );
   const bigScreen = width && width >= 1200;
+  const mobileItems = () => {
+    if (!bigScreen) {
+      return (
+        <>
+          <button
+            className="fixed z-[1000] bottom-96 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
+            onClick={() => {
+              setOpenChat((prev) => !prev);
+            }}
+          >
+            <Logo className="size-9" />
+          </button>
+        </>
+      );
+    }
+  };
+  const chatPage = () => {
+    if (!bigScreen && openChat) {
+      return (
+        <>
+          {chatLoading ? (
+            <Chatloading fullScreen={!bigScreen} />
+          ) : (
+            <Chatcomponent fullScreen={!bigScreen} />
+          )}
+        </>
+      );
+    }
+  };
+
   return (
     <>
       {/* left */}
@@ -70,7 +102,7 @@ export default function Video() {
           <Suspense>
             <main className="flex-1 flex flex-col gap-4">
               {mainContent}
-              <CommentSectionWrapper />
+              {/* <CommentSectionWrapper /> */}
             </main>
           </Suspense>
         </div>
@@ -84,6 +116,9 @@ export default function Video() {
           {chatLoading ? <Chatloading /> : <Chatcomponent />}
         </div>
       )}
+      {/* small screen specific */}
+      {mobileItems()}
+      {chatPage()}
     </>
   );
 }
