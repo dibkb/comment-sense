@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import MainContentSkeleton from "@/components/SkeletonLoaders/MainContentSkeleton";
 import CommentSectionWrapper from "@/components/Videopage/CommentSection";
@@ -14,6 +14,7 @@ import { usePrepareChat } from "@/hooks/usePrepareChat";
 import Chatloading from "@/components/Videopage/Chat/Chatloading";
 import useGetWidth from "@/hooks/useGetWidth";
 import Logo from "@/components/svg/Logo";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +31,8 @@ export default function Video() {
     );
   const { width } = useGetWidth();
   const [isClient, setIsClient] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
+  const dialogueRef = useRef<HTMLDivElement>(null);
+
   // Ensure this runs only on client-side
   useEffect(() => {
     setIsClient(true);
@@ -59,34 +61,26 @@ export default function Video() {
       <RealtedVideos apiResponse={relatedVideos} />
     );
   const bigScreen = width && width >= 1200;
-  const mobileItems = () => {
-    if (!bigScreen) {
-      return (
-        <>
-          <button
-            className="fixed z-[1000] bottom-16 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
-            onClick={() => {
-              setOpenChat((prev) => !prev);
-            }}
-          >
+  const chatPage = () => {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <button className="fixed z-[1000] bottom-16 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl">
             <Logo className="size-9" />
           </button>
-        </>
-      );
-    }
-  };
-  const chatPage = () => {
-    if (!bigScreen && openChat) {
-      return (
-        <>
+        </DialogTrigger>
+        <DialogContent
+          className="h-[90vh] min-w-[90vw] overflow-y-scroll hide-scrollbar"
+          ref={dialogueRef}
+        >
           {chatLoading ? (
-            <Chatloading fullScreen={!bigScreen} />
+            <Chatloading />
           ) : (
-            <Chatcomponent fullScreen={!bigScreen} />
+            <Chatcomponent fullScreen={true} parentRef={dialogueRef} />
           )}
-        </>
-      );
-    }
+        </DialogContent>
+      </Dialog>
+    );
   };
 
   return (
@@ -116,8 +110,7 @@ export default function Video() {
         </div>
       )}
       {/* small screen specific */}
-      {mobileItems()}
-      {chatPage()}
+      {!bigScreen && chatPage()}
     </>
   );
 }

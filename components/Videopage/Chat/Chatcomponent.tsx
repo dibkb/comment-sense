@@ -1,15 +1,16 @@
 import Send from "@/components/svg/Send";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import Avatarchat from "./Avatar";
 import Logo from "@/components/svg/Logo";
 import { useSearchParams } from "next/navigation";
 import { fastApiInstance } from "@/axios";
 interface Chatcomponent {
   fullScreen?: boolean;
+  parentRef?: RefObject<HTMLDivElement>;
 }
-const Chatcomponent = ({ fullScreen = false }) => {
+const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
   const { user } = useUser();
@@ -30,7 +31,7 @@ const Chatcomponent = ({ fullScreen = false }) => {
       ...prev,
       {
         creator: "ai",
-        message: data.content,
+        message: query,
       },
     ]);
     setLoading(false);
@@ -40,7 +41,10 @@ const Chatcomponent = ({ fullScreen = false }) => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chat]);
+    if (parentRef?.current) {
+      parentRef.current.scrollTop = parentRef.current.scrollHeight;
+    }
+  }, [chat, parentRef]);
   const aiLoading = () => {
     return (
       <div className="flex items-center gap-2">
@@ -81,12 +85,8 @@ const Chatcomponent = ({ fullScreen = false }) => {
   return (
     <div
       className={cn(
-        `${
-          fullScreen
-            ? "fixed w-[calc(100vw)] h-[calc(100vh)] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
-            : "h-full"
-        } `,
-        "h-full text-sm p-2 rounded-lg bg-stone-50"
+        "h-full text-sm p-2 rounded-lg bg-stone-50",
+        `${fullScreen} && bg-white`
       )}
     >
       <div className="relative h-full flex items-end pb-12">
