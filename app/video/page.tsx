@@ -12,6 +12,7 @@ import RealtedVideos from "@/components/Videopage/RelatedVideos";
 import Chatcomponent from "@/components/Videopage/Chat/Chatcomponent";
 import { usePrepareChat } from "@/hooks/usePrepareChat";
 import Chatloading from "@/components/Videopage/Chat/Chatloading";
+import useGetWidth from "@/hooks/useGetWidth";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export default function Video() {
         " " +
         apiResponse?.channel.name.slice(0, 12) || ""
     );
+  const { width } = useGetWidth();
   const [isClient, setIsClient] = useState(false);
 
   // Ensure this runs only on client-side
@@ -55,11 +57,14 @@ export default function Video() {
     ) : (
       <RealtedVideos apiResponse={relatedVideos} />
     );
+  const bigScreen = width && width >= 1200;
   return (
     <>
       {/* left */}
-      <div className="w-9/12 flex pl-4 sm:pl-8 ">
-        <div className="w-36 mt-4 overflow-clip">{relatedContent}</div>
+      <div className={`${bigScreen && "w-9/12  "} flex md:pl-4`}>
+        <div className="hidden md:flex w-36 mt-4 overflow-clip">
+          {relatedContent}
+        </div>
         {/* middle */}
         <div className="flex-1 overflow-y-auto p-4">
           <Suspense>
@@ -70,13 +75,15 @@ export default function Video() {
           </Suspense>
         </div>
       </div>
-      {/* right */}
-      <div
-        className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
-        style={{ height: "calc(100% - 5rem)" }}
-      >
-        {chatLoading ? <Chatloading /> : <Chatcomponent />}
-      </div>
+      {/* right chat-bar*/}
+      {bigScreen && (
+        <div
+          className="w-3/12 mt-4 fixed z-50 right-0 top-12 pr-4 sm:pr-8"
+          style={{ height: "calc(100% - 5rem)" }}
+        >
+          {chatLoading ? <Chatloading /> : <Chatcomponent />}
+        </div>
+      )}
     </>
   );
 }

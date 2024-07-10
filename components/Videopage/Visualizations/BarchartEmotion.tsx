@@ -21,6 +21,7 @@ import { useMemo } from "react";
 import { calculateEmotions } from "@/utils";
 import { EmotionObj, emotionType, sentimentType } from "@/types/fastapi";
 import emotionEmojiMap from "@/utils/emojimap";
+import useGetWidth from "@/hooks/useGetWidth";
 
 const chartConfig: Record<string, { label: string }> = {
   visitors: {
@@ -29,6 +30,7 @@ const chartConfig: Record<string, { label: string }> = {
 };
 
 export function BarchartEmotion() {
+  const { width } = useGetWidth();
   const { data } = useCommentContext();
   // State to manage selected emotion filter
   const emotionCounts = useMemo(() => calculateEmotions(data), [data]);
@@ -79,13 +81,15 @@ export function BarchartEmotion() {
               content={<ChartTooltipContent indicator="line" />}
             />
             <Bar dataKey="count" layout="vertical" radius={4}>
-              <LabelList
-                dataKey="label"
-                position="insideLeft"
-                offset={8}
-                className="fill-[--color-label]"
-                fontSize={12}
-              />
+              {width && width > 800 && (
+                <LabelList
+                  dataKey="label"
+                  position="insideLeft"
+                  offset={8}
+                  className="fill-[--color-label]"
+                  fontSize={12}
+                />
+              )}
               <LabelList
                 dataKey="count"
                 position="right"

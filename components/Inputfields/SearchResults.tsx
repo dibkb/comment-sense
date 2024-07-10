@@ -47,8 +47,8 @@ const SearchResults = ({
             </p>
             <span
               className={`${size === "s" && "text-[10px]"}
-                          ${size === "l" && "text-sm"}
-               text-stone-500 flex gap-4`}
+                          ${size === "l" && "text-xs"}
+               text-stone-500 flex gap-1 flex-col md:flex-row md:gap-4`}
             >
               <p className="flex items-center gap-2">
                 <span className="size-1 rounded-full bg-stone-500" />
