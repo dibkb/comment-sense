@@ -11,7 +11,7 @@ const Chatloading = ({ fullScreen = false }: Chatloadingprops) => {
       className={cn(
         `${
           fullScreen
-            ? "absolute w-[calc(100vw)] h-[calc(100vh)] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
+            ? "fixed w-[calc(100vw)] h-[calc(100vh)] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
             : "h-full"
         }`,
         "text-sm p-2 rounded-lg bg-stone-50 flex items-center justify-center"
