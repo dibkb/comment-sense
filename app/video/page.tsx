@@ -65,7 +65,7 @@ export default function Video() {
       return (
         <>
           <button
-            className="fixed z-[1000] bottom-96 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
+            className="fixed z-[1000] bottom-16 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
             onClick={() => {
               setOpenChat((prev) => !prev);
             }}
@@ -102,7 +102,7 @@ export default function Video() {
           <Suspense>
             <main className="flex-1 flex flex-col gap-4">
               {mainContent}
-              {/* <CommentSectionWrapper /> */}
+              <CommentSectionWrapper />
             </main>
           </Suspense>
         </div>
