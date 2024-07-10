@@ -14,7 +14,6 @@ import { usePrepareChat } from "@/hooks/usePrepareChat";
 import Chatloading from "@/components/Videopage/Chat/Chatloading";
 import useGetWidth from "@/hooks/useGetWidth";
 import Logo from "@/components/svg/Logo";
-import ChatcomponentFull from "@/components/Videopage/Chat/ChatcomponentFull";
 
 export const dynamic = "force-dynamic";
 
