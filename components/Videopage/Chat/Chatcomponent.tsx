@@ -31,7 +31,7 @@ const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
       ...prev,
       {
         creator: "ai",
-        message: query,
+        message: data,
       },
     ]);
     setLoading(false);
