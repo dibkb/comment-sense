@@ -23,7 +23,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white px-1 py-2 h-[90vh] absolute bottom-0 rounded-lg shadow-lg max-w-md w-full">
+      <div className="bg-white px-1 py-2 h-[90vh] absolute bottom-0 rounded-lg shadow-lg w-[90vw]">
         <button
           onClick={onClose}
           className="absolute z-50 top-2 right-2 text-xs px-2 py-1 rounded-md text-white bg-red-500 hover:bg-red-700"

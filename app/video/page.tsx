@@ -66,11 +66,7 @@ export default function Video() {
   const chatPage = () => {
     return (
       <Modal isOpen={showChat} onClose={() => setShowChat(false)}>
-        {chatLoading ? (
-          <Chatloading />
-        ) : (
-          <Chatcomponent fullScreen={true} parentRef={dialogueRef} />
-        )}
+        {chatLoading ? <Chatloading /> : <Chatcomponent fullScreen={true} />}
       </Modal>
     );
   };

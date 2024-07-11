@@ -8,9 +8,8 @@ import { useSearchParams } from "next/navigation";
 import { fastApiInstance } from "@/axios";
 interface Chatcomponent {
   fullScreen?: boolean;
-  parentRef?: RefObject<HTMLDivElement>;
 }
-const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
+const Chatcomponent = ({ fullScreen = false }: Chatcomponent) => {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
   const { user } = useUser();
@@ -31,7 +30,7 @@ const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
       ...prev,
       {
         creator: "ai",
-        message: data,
+        message: data.content,
       },
     ]);
     setLoading(false);
@@ -41,10 +40,7 @@ const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-    if (parentRef?.current) {
-      parentRef.current.scrollTop = parentRef.current.scrollHeight;
-    }
-  }, [chat, parentRef]);
+  }, [chat]);
   const aiLoading = () => {
     return (
       <div className="flex items-center gap-2">
