@@ -25,6 +25,7 @@ export const useRelatedVideos = (title: string) => {
   const [error, setError] = useState<boolean>(false);
   const debouncedTitle = useDebounce(title, 300); //
   useEffect(() => {
+    if (debouncedTitle.trim() === "") return;
     if (debouncedTitle.length) {
       setLoading(true);
       getRelatedVideo(debouncedTitle)

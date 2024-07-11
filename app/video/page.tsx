@@ -98,14 +98,16 @@ export default function Video() {
         </div>
       )}
       {/* small screen specific */}
-      <button
-        onClick={() => {
-          setShowChat((p) => !p);
-        }}
-        className="fixed z-[1000] bottom-36 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
-      >
-        <Logo className="size-9" />
-      </button>
+      {!bigScreen && (
+        <button
+          onClick={() => {
+            setShowChat((p) => !p);
+          }}
+          className="fixed z-[1000] bottom-36 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
+        >
+          <Logo className="size-9" />
+        </button>
+      )}
       {!bigScreen && showChat && chatPage()}
     </>
   );
