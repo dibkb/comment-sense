@@ -22,9 +22,9 @@ const SearchResults = ({
           className="rounded-md hover:bg-stone-100 p-2 flex gap-3"
         >
           <div
-            className={`flex ${size === "l" && "w-48"}  ${
-              size === "s" && "w-20"
-            }`}
+            className={`flex ${
+              size === "l" && "h-[58px] w-[100px] md:h-[112px] md:w-[192px]"
+            }  ${size === "s" && "w-20"}`}
           >
             <AspectRatio ratio={16 / 9} className="bg-muted">
               <Image
@@ -40,7 +40,9 @@ const SearchResults = ({
                       ${size === "l" && "text-base"}
             flex flex-col gap-1`}
           >
-            <h1 className="line-clamp-1 font-medium">{video.title}</h1>
+            <h1 className="line-clamp-1 font-medium text-sm sm:text-base">
+              {video.title}
+            </h1>
             <p className="flex items-center gap-1">
               <Play className={"size-3 text-stone-500"} />
               <h2 className="line-clamp-1">{video.channel.name}</h2>
@@ -48,7 +50,7 @@ const SearchResults = ({
             <span
               className={`${size === "s" && "text-[10px]"}
                           ${size === "l" && "text-xs"}
-               text-stone-500 flex gap-1 flex-col md:flex-row md:gap-4`}
+               text-stone-500 hidden gap-1 md:flex flex-col md:flex-row md:gap-4`}
             >
               <p className="flex items-center gap-2">
                 <span className="size-1 rounded-full bg-stone-500" />
