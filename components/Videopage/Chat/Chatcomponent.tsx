@@ -86,7 +86,7 @@ const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
     <div
       className={cn(
         "h-full text-sm p-2 rounded-lg bg-stone-50",
-        `${fullScreen} && bg-white`
+        `${fullScreen && "bg-white"}`
       )}
     >
       <div className="relative h-full flex items-end pb-12">
@@ -107,7 +107,7 @@ const Chatcomponent = ({ fullScreen = false, parentRef }: Chatcomponent) => {
             type="submit"
             disabled={loading}
             className={cn(
-              "bg-stone-700 hover:bg-stone-900 text-white rounded-xl px-2 py-1 flex items-center gap-2",
+              "bg-stone-700 hover:bg-stone-900 text-white rounded-xl px-2 py-2 sm:py-1 flex items-center gap-2",
               loading && "opacity-30"
             )}
           >

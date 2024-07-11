@@ -27,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           <main className="mt-12">{children}</main>
           <Toaster />
+          <div id="modal-root"></div>
         </body>
       </html>
     </ClerkProvider>

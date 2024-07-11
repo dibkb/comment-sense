@@ -15,6 +15,7 @@ import Chatloading from "@/components/Videopage/Chat/Chatloading";
 import useGetWidth from "@/hooks/useGetWidth";
 import Logo from "@/components/svg/Logo";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Modal from "@/components/Modal/Model";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +31,7 @@ export default function Video() {
         apiResponse?.channel.name.slice(0, 12) || ""
     );
   const { width } = useGetWidth();
+  const [showChat, setShowChat] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const dialogueRef = useRef<HTMLDivElement>(null);
 
@@ -63,23 +65,13 @@ export default function Video() {
   const bigScreen = width && width >= 1200;
   const chatPage = () => {
     return (
-      <Dialog>
-        <DialogTrigger asChild>
-          <button className="fixed z-[1000] bottom-20 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl">
-            <Logo className="size-9" />
-          </button>
-        </DialogTrigger>
-        <DialogContent
-          className="h-[90vh] min-w-[90vw] overflow-y-scroll hide-scrollbar"
-          ref={dialogueRef}
-        >
-          {chatLoading ? (
-            <Chatloading />
-          ) : (
-            <Chatcomponent fullScreen={true} parentRef={dialogueRef} />
-          )}
-        </DialogContent>
-      </Dialog>
+      <Modal isOpen={showChat} onClose={() => setShowChat(false)}>
+        {chatLoading ? (
+          <Chatloading />
+        ) : (
+          <Chatcomponent fullScreen={true} parentRef={dialogueRef} />
+        )}
+      </Modal>
     );
   };
 
@@ -110,7 +102,15 @@ export default function Video() {
         </div>
       )}
       {/* small screen specific */}
-      {!bigScreen && chatPage()}
+      <button
+        onClick={() => {
+          setShowChat((p) => !p);
+        }}
+        className="fixed z-[1000] bottom-36 right-6 bg-white rounded-full p-1 shadow-xl cursor-pointer hover:bg-stone-50 hover:shadow-2xl"
+      >
+        <Logo className="size-9" />
+      </button>
+      {!bigScreen && showChat && chatPage()}
     </>
   );
 }

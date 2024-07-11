@@ -7,4 +7,4 @@ import {
   Open_Sans,
 } from "next/font/google";
 export const heading = Playfair_Display({ subsets: ["latin"] });
-export const body = Nunito_Sans({ subsets: ["latin"] });
+export const body = Inter({ subsets: ["latin"] });

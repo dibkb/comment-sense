@@ -16,18 +16,10 @@ const Navbar = () => {
       >
         <button className={"flex items-center gap-2 font-medium"}>
           <Logo className="text-stone-800 size-7" />
-          <p>Comment</p>
-          <p className="">Sense</p>
+          <p className={heading.className}>Comment</p>
+          <p className={heading.className}>Sense</p>
         </button>
         <UserButton />
-        {/* <button className="flex gap-2 items-center w-36 h-12 rounded-full relative bg-stone-700 group hover:bg-stone-100 group">
-          <h2 className="absolute left-6 text-white group-hover:text-stone-800">
-            Sign in
-          </h2>
-          <span className="w-10 h-10 flex items-center justify-center rounded-3xl absolute right-1 bg-stone-100 z-10">
-            <Arrowright className="size-5" />
-          </span>
-        </button> */}
       </div>
     </main>
   );
