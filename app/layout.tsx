@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Comments Sense",
   description:
     "Measure and Analyze YouTube Comment Sentiment Like Never Before",
+  icons: {
+    icon: "favicon.ico", // /public path
+  },
 };
 
 export default function RootLayout({
@@ -23,6 +26,7 @@ export default function RootLayout({
         httpEquiv="Content-Security-Policy"
         content="upgrade-insecure-requests"
       ></meta>
+
       <body className={body.className}>
         <Navbar />
         <main className="mt-12">{children}</main>
