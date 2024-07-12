@@ -14,7 +14,7 @@ const Navbar = () => {
           <p className={heading.className}>Comment</p>
           <p className={heading.className}>Sense</p>
         </button>
-        <UserButton />
+        {/* <UserButton /> */}
       </div>
     </main>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+// import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { body } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
@@ -17,19 +17,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        ></meta>
-        <body className={body.className}>
-          <Navbar />
-          <main className="mt-12">{children}</main>
-          <Toaster />
-          <div id="modal-root"></div>
-        </body>
-      </html>
-    </ClerkProvider>
+    // <ClerkProvider>
+    <html lang="en">
+      <meta
+        httpEquiv="Content-Security-Policy"
+        content="upgrade-insecure-requests"
+      ></meta>
+      <body className={body.className}>
+        <Navbar />
+        <main className="mt-12">{children}</main>
+        <Toaster />
+        <div id="modal-root"></div>
+      </body>
+    </html>
+    // </ClerkProvider>
   );
 }

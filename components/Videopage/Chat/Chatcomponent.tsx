@@ -12,7 +12,7 @@ interface Chatcomponent {
 const Chatcomponent = ({ fullScreen = false }: Chatcomponent) => {
   const searchParams = useSearchParams();
   const ytid = searchParams.get("ytid");
-  const { user } = useUser();
+  // const { user } = useUser();
   const [query, setQuery] = useState("");
   const [chat, setChat] = useState<AiChat[]>([]);
   const [loading, setLoading] = useState(false);
@@ -63,7 +63,7 @@ const Chatcomponent = ({ fullScreen = false }: Chatcomponent) => {
         if (c.creator === "user")
           return (
             <span key={id} className="w-full flex flex-col items-end gap-2">
-              <Avatarchat url={user?.imageUrl} name={user?.fullName} />
+              {/* <Avatarchat url={user?.imageUrl} name={user?.fullName} /> */}
               <p className="bg-stone-200 px-4 py-1 rounded-lg">{c.message}</p>
             </span>
           );
