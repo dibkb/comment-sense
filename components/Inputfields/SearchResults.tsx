@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { type SearchResults } from "@/types/nodeapi";
 import React from "react";
 import { AspectRatio } from "../ui/aspect-ratio";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import Play from "../svg/Play";
 import ArrowUpRight from "../svg/ArrowUpRight";
@@ -27,10 +28,9 @@ const SearchResults = ({
             }  ${size === "s" && "w-20"}`}
           >
             <AspectRatio ratio={16 / 9} className="bg-muted">
-              <Image
+              <img
                 src={video.thumbnails[0].url}
                 alt={video.title}
-                fill
                 className="rounded-md object-cover"
               />
             </AspectRatio>

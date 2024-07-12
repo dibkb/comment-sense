@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { SearchResults } from "@/types/nodeapi";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 interface RealtedVideos {
@@ -13,10 +13,9 @@ const RealtedVideos = ({ apiResponse }: RealtedVideos) => {
     <Link key={video.id} href={`/video?ytid=${video.id}`} className="group">
       <Card className="group-hover:bg-stone-100">
         <AspectRatio ratio={16 / 9} className="bg-muted relative">
-          <Image
+          <img
             src={video.thumbnails[0].url}
             alt={video.title}
-            fill
             className="rounded-t-md object-cover"
           />
           <Badge className="absolute bottom-0 right-0" variant={"default"}>

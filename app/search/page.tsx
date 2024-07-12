@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import SearchResults from "@/components/Inputfields/SearchResults";
@@ -7,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import VideoUrlInput from "@/components/Inputfields/Videoinputfield";
 import { cn } from "@/lib/utils";
 import { heading } from "@/fonts";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 function Search() {
   const searchParams = useSearchParams();
@@ -30,7 +31,7 @@ function Search() {
   if (error) {
     return (
       <main className="flex flex-col items-center justify-center py-24">
-        <Image
+        <img
           src={
             "https://cdn.dribbble.com/userupload/3496364/file/original-b6be68de66ceaa407fd2dd723d4e59ca.jpg?resize=400x400"
           }
