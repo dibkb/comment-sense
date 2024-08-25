@@ -67,6 +67,9 @@ export function formatDuration(seconds: any) {
     return `${remainingSeconds} ${remainingSeconds > 1 ? "s" : ""}`;
   }
 }
+export function formatNumber(num: number): string {
+  return new Intl.NumberFormat("en-US").format(num);
+}
 export function convertToSeconds(duration: any) {
   const match = duration.match(/PT(\d+M)?(\d+S)?/);
 
