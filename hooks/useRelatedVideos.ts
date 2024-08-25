@@ -1,7 +1,7 @@
 "use client";
 
 import { getRelatedVideo } from "@/apicall/nodeapi";
-import { SearchResults, VideoInfo } from "@/types/nodeapi";
+import { YouTubeSearchListResponse } from "@/types/nodeapi";
 import { useEffect, useState } from "react";
 
 const useDebounce = (value: string, delay: number): string => {
@@ -21,14 +21,14 @@ const useDebounce = (value: string, delay: number): string => {
 };
 export const useRelatedVideos = (title: string) => {
   const [loading, setLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<SearchResults>();
+  const [apiResponse, setApiResponse] = useState<YouTubeSearchListResponse>();
   const [error, setError] = useState<boolean>(false);
   const debouncedTitle = useDebounce(title, 300); //
   useEffect(() => {
     if (debouncedTitle.trim() === "") return;
     if (debouncedTitle.length) {
       setLoading(true);
-      getRelatedVideo(debouncedTitle)
+      getRelatedVideo(debouncedTitle, 12)
         .then((res) => {
           setApiResponse(res);
         })

@@ -1,7 +1,7 @@
 import { nodeApiInstance } from "@/axios";
 import {
-  SearchResults,
   YouTubeChannelResponse,
+  YouTubeSearchListResponse,
   YouTubeVideoResponse,
 } from "@/types/nodeapi";
 import axios from "axios";
@@ -28,8 +28,11 @@ export const getChannelInfo = async (
 };
 
 export const getRelatedVideo = async (
-  title: string
-): Promise<SearchResults> => {
-  const res = await nodeApiInstance.get(`search-video/${title}`);
+  title: string,
+  count: number
+): Promise<YouTubeSearchListResponse> => {
+  const res = await axios.get(
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${count}&q=${title}&type=video&key=${apiKey}`
+  );
   return res.data;
 };

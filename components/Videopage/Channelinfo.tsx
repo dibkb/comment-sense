@@ -26,9 +26,15 @@ const ChannelInfo = ({ apiResponse }: ChannelInfo) => {
       </Avatar>
       <h2 className="font-medium whitespace-nowrap">
         {channelResponse?.items[0].snippet.title}
-        <p className="text-xs text-stone-600">
-          {formatNumber(channelResponse?.items[0].statistics.subscriberCount)}
-        </p>
+        {channelResponse?.items[0].statistics.subscriberCount ? (
+          <p className="text-xs text-stone-600">
+            {formatNumber(
+              +channelResponse?.items[0].statistics.subscriberCount
+            )}
+          </p>
+        ) : (
+          ""
+        )}
       </h2>
     </div>
   );

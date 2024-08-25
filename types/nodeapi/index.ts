@@ -104,64 +104,40 @@ export type YouTubeChannelResponse = {
   }>;
 };
 
-interface SearchVideo {
-  channel: {
-    id: string;
-    name: string;
-    url: string;
+export type YouTubeSearchListResponse = {
+  kind: "youtube#searchListResponse";
+  etag: string;
+  nextPageToken: string;
+  regionCode: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
   };
-  duration: {
-    pretty: string;
-    text: string;
+  items: YouTubeSearchResult[];
+};
+
+type YouTubeSearchResult = {
+  kind: "youtube#searchResult";
+  etag: string;
+  id: {
+    kind: "youtube#video";
+    videoId: string;
   };
-  id: string;
-  published: {
-    pretty: string;
-  };
-  thumbnails: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
-  title: string;
-  url: string;
-  views: {
-    pretty: string;
-    prettyLong: string;
-    text: string;
-  };
-}
-interface SearchPlaylist {
-  id: string;
-  name: string;
-  published: {
-    pretty?: string;
-  };
-  thumbnails: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
-  url: string;
-  videoCount: string;
-}
-interface SearchChannel {
-  badges: string[];
-  icons: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
-  id: string;
-  name: string;
-  subscribers: {
-    pretty: string;
-    text: string;
-  };
-  url: string;
-}
-export interface SearchResults {
-  channels: SearchChannel[];
-  playlists: SearchPlaylist[];
-  videos: SearchVideo[];
-}
+  snippet: YouTubeSnippet;
+};
+
+type YouTubeSnippet = {
+  publishedAt?: string;
+  channelId?: string;
+  title?: string;
+  description?: string;
+  thumbnails?: YouTubeThumbnails;
+  channelTitle?: string;
+  liveBroadcastContent?: string;
+  publishTime?: string;
+};
+type YouTubeThumbnails = {
+  default: ThumbnailInfo;
+  medium: ThumbnailInfo;
+  high: ThumbnailInfo;
+};

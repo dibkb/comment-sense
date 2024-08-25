@@ -24,12 +24,8 @@ export default function Video() {
   const ytid = searchParams.get("ytid");
   const { loading, apiResponse } = useGetBasicInfo();
   const { loading: chatLoading, error: chatError } = usePrepareChat();
-  // const { loading: loadingRelated, apiResponse: relatedVideos } =
-  //   useRelatedVideos(
-  //     apiResponse?.title.slice(0, 12) +
-  //       " " +
-  //       apiResponse?.channel.name.slice(0, 12) || ""
-  //   );
+  const { loading: loadingRelated, apiResponse: relatedVideos } =
+    useRelatedVideos(apiResponse?.items[0].snippet.title.slice(0, 12) || "");
   const { width } = useGetWidth();
   const [showChat, setShowChat] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -56,12 +52,12 @@ export default function Video() {
       <VideoContent apiResponse={apiResponse} />
     );
 
-  // const relatedContent =
-  //   !relatedVideos || loadingRelated ? (
-  //     ""
-  //   ) : (
-  //     <RealtedVideos apiResponse={relatedVideos} />
-  //   );
+  const relatedContent =
+    !relatedVideos || loadingRelated ? (
+      ""
+    ) : (
+      <RealtedVideos apiResponse={relatedVideos} />
+    );
   const bigScreen = width && width >= 1200;
   const chatPage = () => {
     return (
@@ -76,7 +72,7 @@ export default function Video() {
       {/* left */}
       <div className={`${bigScreen && "w-9/12  "} flex md:pl-4`}>
         <div className="hidden md:flex w-36 mt-4 overflow-clip">
-          {/* {relatedContent} */}
+          {relatedContent}
         </div>
         {/* middle */}
         <div className="flex-1 overflow-y-auto p-4">
