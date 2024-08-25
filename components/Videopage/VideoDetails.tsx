@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Category from "../svg/Category";
 import Family from "../svg/Family";
 import { YouTubeVideoResponse } from "@/types/nodeapi";
+import { youtubeCategoryMap } from "@/utils/category";
 
 // Component to render video details
 interface VideoDetails {
@@ -17,14 +18,14 @@ const VideoDetails = ({ apiResponse }: VideoDetails) => (
   >
     <h1 className="flex items-center gap-1">
       <Category className="size-4" />
-      {apiResponse?.category}
+      {youtubeCategoryMap[+apiResponse.items[0].snippet.categoryId]}
     </h1>
-    {apiResponse?.isFamilySafe && (
+    {/* {apiResponse?.isFamilySafe && (
       <h1 className="flex items-center gap-1">
         <Family className="size-4" />
         Family Friendly
       </h1>
-    )}
+    )} */}
   </span>
 );
 export default VideoDetails;

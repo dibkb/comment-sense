@@ -28,7 +28,7 @@ const ChannelInfo = ({ apiResponse }: ChannelInfo) => {
         </AvatarFallback>
       </Avatar>
       <h2 className="font-medium whitespace-nowrap">
-        {apiResponse?.items[0].snippet.title}
+        {channelResponse?.items[0].snippet.title}
         <p className="text-xs text-stone-600">
           {channelResponse?.items[0].statistics.subscriberCount}
         </p>

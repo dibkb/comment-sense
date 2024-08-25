@@ -31,7 +31,7 @@ const VideoContent = ({ apiResponse }: VideoContentProps) => (
     <div className="flex flex-col gap-2">
       {/* <VideoHeader apiResponse={apiResponse} /> */}
       <ChannelInfo apiResponse={apiResponse} />
-      {/* <VideoDetails apiResponse={apiResponse} /> */}
+      <VideoDetails apiResponse={apiResponse} />
       <Description text={apiResponse?.items[0]?.snippet?.description} />
     </div>
   </>
