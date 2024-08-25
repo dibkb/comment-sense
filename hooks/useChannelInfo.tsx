@@ -1,25 +1,21 @@
 "use client";
 
-import { getVideoInfo } from "@/apicall/nodeapi";
+import { getChannelInfo } from "@/apicall/nodeapi";
 import { toast } from "@/components/ui/use-toast";
-import { YouTubeVideoResponse } from "@/types/nodeapi";
-import { isYouTubeId } from "@/utils/regx";
-import { ToastAction } from "@radix-ui/react-toast";
-import { useSearchParams } from "next/navigation";
+import { YouTubeChannelResponse } from "@/types/nodeapi";
 import { useEffect, useState } from "react";
 
-export const useGetBasicInfo = () => {
+export const useChanneInfo = (channelId: string) => {
   const [loading, setLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<YouTubeVideoResponse>();
+  const [channelResponse, setChannelResponse] =
+    useState<YouTubeChannelResponse>();
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-  const ytid = searchParams.get("ytid");
   useEffect(() => {
-    if (ytid && isYouTubeId(ytid)) {
+    if (channelId) {
       setLoading(true);
-      getVideoInfo(ytid)
+      getChannelInfo(channelId)
         .then((res) => {
-          setApiResponse(res);
+          setChannelResponse(res);
         })
         .catch((error) => {
           const typedError = error as Error;
@@ -31,10 +27,10 @@ export const useGetBasicInfo = () => {
     } else {
       // TODO : invalid videoid or missing videoid
     }
-  }, [ytid]);
+  }, [channelId]);
   return {
     loading,
-    apiResponse,
+    channelResponse,
     error,
   };
 };

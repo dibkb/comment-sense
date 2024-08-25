@@ -6,13 +6,6 @@ import { fastApiInstance } from "@/axios";
 import { useCommentContext } from "@/context/CommentContext";
 import { useSearchParams } from "next/navigation";
 
-interface getVideoInfoProps {
-  ytid: string;
-  start: number;
-  end: number;
-  sort: 0 | 1;
-}
-
 const useFetchComments = (): void => {
   const searchParams = useSearchParams();
   const id = searchParams.get("ytid");

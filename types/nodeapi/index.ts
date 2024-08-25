@@ -1,64 +1,109 @@
-export interface VideoInfo {
-  category: string;
-  channel: {
-    icons: {
-      height: number;
-      url: string;
-      width: number;
-    }[];
+export type YouTubeVideoResponse = {
+  kind: string;
+  etag: string;
+  items: Array<{
+    kind: string;
+    etag: string;
     id: string;
-    name: string;
-    subscribers: {
-      pretty: string;
+    snippet: {
+      publishedAt: string;
+      channelId: string;
+      title: string;
+      description: string;
+      thumbnails: {
+        default: ThumbnailInfo;
+        medium: ThumbnailInfo;
+        high: ThumbnailInfo;
+        standard: ThumbnailInfo;
+        maxres: ThumbnailInfo;
+      };
+      channelTitle: string;
+      categoryId: string;
+      liveBroadcastContent: string;
+      localized: {
+        title: string;
+        description: string;
+      };
+      defaultAudioLanguage: string;
     };
-    url: string;
-  };
-  description: string;
-  duration: {
-    lengthSec: string;
-  };
-  embed: {
-    flashSecureUrl: string;
-    flashUrl: string;
-    height: number;
-    iframeUrl: string;
-    width: number;
-  };
-  id: string;
-  isFamilySafe: boolean;
-  isLive: boolean;
-  isUnlisted: boolean;
-  keywords: string[];
-  published: {
-    pretty: string;
-    text: string;
-  };
-  ratings: {
-    dislikes: {
-      pretty: string;
-      text: string;
+    contentDetails: {
+      duration: string;
+      dimension: string;
+      definition: string;
+      caption: string;
+      licensedContent: boolean;
+      contentRating: Record<string, unknown>;
+      projection: string;
     };
-    likes: {
-      pretty: string;
-      text: string;
+    status: {
+      uploadStatus: string;
+      privacyStatus: string;
+      license: string;
+      embeddable: boolean;
+      publicStatsViewable: boolean;
+      madeForKids: boolean;
     };
-  };
-  shortDescription: string;
-  thumbnails: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
-  title: string;
-  uploaded: {
-    text: string;
-  };
+    statistics: {
+      viewCount: string;
+      likeCount: string;
+      favoriteCount: string;
+      commentCount: string;
+    };
+  }>;
+};
+
+type ThumbnailInfo = {
   url: string;
-  views: {
-    pretty: string;
-    text: string;
+  width: number;
+  height: number;
+};
+
+export type YouTubeChannelResponse = {
+  kind: string;
+  etag: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
   };
-}
+  items: Array<{
+    kind: string;
+    etag: string;
+    id: string;
+    snippet: {
+      title: string;
+      description: string;
+      customUrl: string;
+      publishedAt: string;
+      thumbnails: {
+        default: ThumbnailInfo;
+        medium: ThumbnailInfo;
+        high: ThumbnailInfo;
+      };
+      localized: {
+        title: string;
+        description: string;
+      };
+    };
+    contentDetails: {
+      relatedPlaylists: {
+        likes: string;
+        uploads: string;
+      };
+    };
+    statistics: {
+      viewCount: string;
+      subscriberCount: string;
+      hiddenSubscriberCount: boolean;
+      videoCount: string;
+    };
+    status: {
+      privacyStatus: string;
+      isLinked: boolean;
+      longUploadsStatus: string;
+    };
+  }>;
+};
+
 interface SearchVideo {
   channel: {
     id: string;

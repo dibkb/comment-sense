@@ -1,9 +1,9 @@
-import { VideoInfo } from "@/types/nodeapi";
+import { YouTubeVideoResponse } from "@/types/nodeapi";
 import { formatDuration } from "@/utils";
 
 // Component to render video header
 interface VideoHeaderProps {
-  apiResponse: VideoInfo;
+  apiResponse: YouTubeVideoResponse;
 }
 const VideoHeader = ({ apiResponse }: VideoHeaderProps) => {
   return (

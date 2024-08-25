@@ -2,9 +2,13 @@ import { heading } from "@/fonts";
 import { cn } from "@/lib/utils";
 import Category from "../svg/Category";
 import Family from "../svg/Family";
+import { YouTubeVideoResponse } from "@/types/nodeapi";
 
 // Component to render video details
-const VideoDetails = ({ apiResponse }: { apiResponse: any }) => (
+interface VideoDetails {
+  apiResponse: YouTubeVideoResponse;
+}
+const VideoDetails = ({ apiResponse }: VideoDetails) => (
   <span
     className={cn(
       "mt-2 flex items-center justify-between text-sm text-stone-700 border-b pb-2",

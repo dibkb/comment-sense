@@ -14,7 +14,8 @@ interface DescriptionProps {
 // Main component to render the description text
 const Description = ({ text }: DescriptionProps) => {
   // Split the text into blocks separated by double newlines
-  const doubleLines = text.split("\n\n");
+  console.log(text);
+  const doubleLines = text?.split("\n\n");
   const [showLess, setShowLess] = useState(true);
   return (
     <Card className="bg-stone-100 p-4">
@@ -29,7 +30,7 @@ const Description = ({ text }: DescriptionProps) => {
           });
         }}
       >
-        {doubleLines.map((block, blockIndex) => (
+        {doubleLines?.map((block, blockIndex) => (
           <span key={blockIndex} className="mb-4">
             {block.split("\n").map((line, lineIndex) => {
               const { parts, urls } = processText(line); // Process each line for URLs
