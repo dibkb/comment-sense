@@ -25,7 +25,11 @@ export default function Video() {
   const { loading, apiResponse } = useGetBasicInfo();
   const { loading: chatLoading, error: chatError } = usePrepareChat();
   const { loading: loadingRelated, apiResponse: relatedVideos } =
-    useRelatedVideos(apiResponse?.items[0].snippet.title.slice(0, 12) || "");
+    useRelatedVideos(
+      apiResponse?.items[0].snippet.title.slice(0, 12) +
+        " " +
+        apiResponse?.items[0].snippet.channelTitle || ""
+    );
   const { width } = useGetWidth();
   const [showChat, setShowChat] = useState(false);
   const [isClient, setIsClient] = useState(false);
