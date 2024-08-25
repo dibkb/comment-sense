@@ -28,6 +28,28 @@ export function getYoutubeLinkFromId(id: string) {
     throw new Error("Not a valid id");
   }
 }
+export function convertDuration(duration: any) {
+  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+
+  let hours = 0;
+  let minutes = 0;
+  let seconds = 0;
+
+  if (match[1]) hours = parseInt(match[1]);
+  if (match[2]) minutes = parseInt(match[2]);
+  if (match[3]) seconds = parseInt(match[3]);
+
+  const totalMinutes = hours * 60 + minutes + Math.floor(seconds / 60);
+  seconds = seconds % 60;
+
+  if (hours > 0) {
+    return `${hours} hour${hours > 1 ? "s" : ""} ${minutes} minute${
+      minutes !== 1 ? "s" : ""
+    }`;
+  } else {
+    return `${totalMinutes} minute${totalMinutes !== 1 ? "s" : ""}`;
+  }
+}
 export function formatDuration(seconds: any) {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -45,7 +67,31 @@ export function formatDuration(seconds: any) {
     return `${remainingSeconds} ${remainingSeconds > 1 ? "s" : ""}`;
   }
 }
+export function convertToSeconds(duration: any) {
+  const match = duration.match(/PT(\d+M)?(\d+S)?/);
 
+  let minutes = 0;
+  let seconds = 0;
+
+  if (match[1]) minutes = parseInt(match[1].replace("M", ""));
+  if (match[2]) seconds = parseInt(match[2].replace("S", ""));
+
+  return minutes * 60 + seconds;
+}
+export function formatPrettyDate(dateString: string) {
+  const date = new Date(dateString);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  return date.toLocaleDateString("en-US", options);
+}
 export const processText = (text: string) => {
   const parts = text
     .replace(urlRegex, "{{url_content}}")
